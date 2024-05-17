@@ -1,11 +1,8 @@
 import "package:app/presentation/sizing.dart";
+import "package:app/ui/app_logo.dart";
 import "package:app/ui/button.dart";
 import "package:app/ui/input.dart";
 import "package:flutter/material.dart";
-import "package:flutter_svg/flutter_svg.dart";
-
-const String assetName = 'assets/images/logo.svg';
-final Widget svg = SvgPicture.asset(assetName, semanticsLabel: 'app Logo');
 
 // ignore: must_be_immutable
 class SignIn extends StatelessWidget {
@@ -20,7 +17,7 @@ class SignIn extends StatelessWidget {
         padding: const EdgeInsets.all(AppSizing.h_24),
         child: Column(
           children: [
-            Expanded(child: svg),
+            const Expanded(child: AppLogo()),
             Expanded(
                 child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
