@@ -9,18 +9,20 @@ class CustomAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Flexible(
-        child: Row(
-      mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        if (hasBackBtn)
-          IconButton(
-              onPressed: () => {Navigator.of(context).pop()},
-              icon: const Icon(Icons.arrow_back_ios)),
-        Text(appTitle, style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.bold)),
-        const AppLogo()
-      ],
-    ));
+    return SizedBox(
+      width: double.infinity,
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+      if (hasBackBtn)
+        IconButton(
+            onPressed: () => {Navigator.of(context).pop()},
+            icon: const Icon(Icons.arrow_back_ios)),
+      Text(appTitle, style: Theme.of(context).textTheme.bodyMedium!.copyWith(fontWeight: FontWeight.bold)),
+      const AppLogo()
+        ],
+      ),
+    );
   }
 }
