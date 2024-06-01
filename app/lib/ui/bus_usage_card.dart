@@ -11,7 +11,7 @@ class BusUsageCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: AppColors.greyLight,
+      color: AppColors.white,
       child: Padding(
         padding: const EdgeInsets.symmetric(
             horizontal: AppPadding.p_16, vertical: AppPadding.p_8),

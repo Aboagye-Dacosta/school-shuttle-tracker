@@ -1,12 +1,16 @@
-import {
-  HiOutlineHome,
-  HiOutlineHomeModern,
-  HiOutlineUsers,
-} from "react-icons/hi2";
+import
+  {
+    HiOutlineHome,
+    HiOutlineUsers
+  } from "react-icons/hi2";
+import { IoMdNotificationsOutline } from "react-icons/io";
+import { IoBusOutline } from "react-icons/io5";
+import { RiUserSettingsLine } from "react-icons/ri";
+import { TfiWheelchair } from "react-icons/tfi";
+import { VscAccount, VscFeedback } from "react-icons/vsc";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { useAuth } from "../context/AuthContext";
-import { IoBusOutline } from "react-icons/io5";
 
 const NavList = styled.ul`
   display: flex;
@@ -56,9 +60,12 @@ const StyledNavLink = styled(NavLink)`
 const icons = {
   dashboard: <HiOutlineHome />,
   buses: <IoBusOutline />,
-  drivers: <HiOutlineHomeModern />,
-  users: <HiOutlineHomeModern />,
-  managers: <HiOutlineUsers />,
+  drivers: <TfiWheelchair />,
+  users: <HiOutlineUsers />,
+  managers: <RiUserSettingsLine />,
+  notifications: <IoMdNotificationsOutline />,
+  feedback: <VscFeedback />,
+  account: <VscAccount />
 };
 
 function MainNav() {

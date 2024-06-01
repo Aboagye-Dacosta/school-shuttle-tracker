@@ -112,7 +112,7 @@ function ToggleButton({ id }) {
 
     setMenuPosition(position);
     setElement(e);
-    menuId === "" || id !== menuId ? openMenu(id) : closeMenu();
+    menuId === "" || id == menuId ? openMenu(id) : closeMenu();
   };
 
   return (
@@ -126,14 +126,7 @@ function List({ children, id }) {
   let { position, menuId, closeMenu } =
     useContext(MenusContext);
   const ref = useCloseClickOutside(closeMenu, false);
-
-  // useEffect(() => {
-  //   const screenPosition = element?.target?.getBoundingClientRect();
-  //   const positionRelativeToDocument =
-  //     screenPosition?.top + document.documentElement.scrollTop + 40;
-  //   setMenuPosition((state) => ({ ...state, y: positionRelativeToDocument }));
-  // }, [element, setMenuPosition]);
-
+ 
   if (id !== menuId) return null;
 
   return createPortal(

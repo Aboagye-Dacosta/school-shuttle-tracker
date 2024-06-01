@@ -4,14 +4,14 @@ const GlobalStyle = createGlobalStyle`
     
 :root {
   /* Indigo */
-  --color-brand-50: #eef2ff;
-  --color-brand-100: #e0e7ff;
-  --color-brand-200: #c7d2fe;
-  --color-brand-500: #6366f1;
-  --color-brand-600: #4f46e5;
-  --color-brand-700: #4338ca;
-  --color-brand-800: #3730a3;
-  --color-brand-900: #312e81;
+  --color-brand-50: #6ede8a;
+  --color-brand-100: #4ad66d;
+  --color-brand-200: #2dc653;
+  --color-brand-500: #25a244;
+  --color-brand-600: #208b3a;
+  --color-brand-700: #1a7431;
+  --color-brand-800: #155d27;
+  --color-brand-900: #10451d;
 
   /* Grey */
  &,&.light-mode {

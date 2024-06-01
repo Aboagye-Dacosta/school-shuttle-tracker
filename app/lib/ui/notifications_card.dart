@@ -11,7 +11,7 @@ class NotificationCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      color: AppColors.greyLight,
+      color: AppColors.white,
       child: Row(
         children: [
           const SizedBox(width: AppSizing.s_4),

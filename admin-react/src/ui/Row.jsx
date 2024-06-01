@@ -11,6 +11,7 @@ const Row = styled.div.attrs(({ type }) => ({
         return css`
           align-items: center;
           justify-content: space-between;
+          gap: 1.6rem;
         `;
       case "vertical":
         return css`

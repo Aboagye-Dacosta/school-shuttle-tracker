@@ -11,102 +11,140 @@ class BusListings extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: AppColors.white,
-        body: SafeArea(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(
-              vertical: AppSizing.h_16,
-              horizontal: AppSizing.h_32,
+        body: Column(
+          children: [
+            const CustomAppBar(
+              appTitle: "Bus Listings",
             ),
-            child: Column(
-              children: [
-                const CustomAppBar(
-                  appTitle: "Bus Listings",
-                ),
-                const Space(),
-                Expanded(
-                    child: ListView.separated(
-                        itemBuilder: (context, _) => Card(
-                              color: AppColors.greyLight,
-                              child: Padding(
-                                padding: const EdgeInsets.all(AppPadding.p_16),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      "K0893-Gh",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .headlineSmall!
-                                          .copyWith(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: AppFontSizes.fs_16,
-                                              color: AppColors.primary),
-                                    ),
-                                    const Space(
-                                      height: AppSizing.h_8,
-                                    ),
-                                    Row(
-                                      children: [
-                                        Container(
-                                          height: AppSizing.h_16,
-                                          width: AppSizing.h_16,
-                                          decoration: BoxDecoration(
-                                              color: AppColors.red,
-                                              borderRadius:
-                                                  BorderRadius.circular(
-                                                      AppSizing.h_16)),
-                                        ),
-                                        const Space(
-                                          height: 0,
-                                          width: AppSizing.h_8,
-                                        ),
-                                        Text(
-                                          "Inactive",
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .bodySmall,
-                                        )
-                                      ],
-                                    ),
-                                    const Space(
-                                      height: AppSizing.h_8,
-                                    ),
-                                    Text(
-                                      "Destinations",
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyMedium!
-                                          .copyWith(
-                                              fontWeight: FontWeight.bold),
-                                    ),
-                                    const Space(
-                                      height: AppSizing.h_8,
-                                    ),
-                                    const Row(
-                                      children: [
-                                        DestinationCard(
-                                          destination: "Katanga",
-                                        ),
-                                        Space(
-                                          height: 0,
-                                          width: AppSizing.h_8,
-                                        ),
-                                        DestinationCard(
-                                          destination: "Independence hall",
-                                        ),
-                                      ],
-                                    )
-                                  ],
+            const Space(),
+            Expanded(
+                child: ListView.separated(
+                    itemBuilder: (context, _) => Card(
+                          color: AppColors.white,
+                          child: Column(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              GestureDetector(
+                                onTap: () => {},
+                                child: Padding(
+                                  padding:
+                                      const EdgeInsets.all(AppPadding.p_16),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "K0893-Gh",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .headlineSmall!
+                                            .copyWith(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize:
+                                                    AppFontSizes.fs_16,
+                                                color: AppColors.primary),
+                                      ),
+                                      const Space(
+                                        height: AppSizing.h_8,
+                                      ),
+                                      Row(
+                                        children: [
+                                          Container(
+                                            height: AppSizing.h_16,
+                                            width: AppSizing.h_16,
+                                            decoration: BoxDecoration(
+                                                color: AppColors.red,
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        AppSizing.h_16)),
+                                          ),
+                                          const Space(
+                                            height: 0,
+                                            width: AppSizing.h_8,
+                                          ),
+                                          Text(
+                                            "Inactive",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodySmall,
+                                          )
+                                        ],
+                                      ),
+                                      const Space(
+                                        height: AppSizing.h_8,
+                                      ),
+                                      Text(
+                                        "Destinations",
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyMedium!
+                                            .copyWith(
+                                                fontWeight:
+                                                    FontWeight.bold),
+                                      ),
+                                      const Space(
+                                        height: AppSizing.h_8,
+                                      ),
+                                      const Row(
+                                        children: [
+                                          DestinationCard(
+                                            destination: "Katanga",
+                                          ),
+                                          Space(
+                                            height: 0,
+                                            width: AppSizing.h_8,
+                                          ),
+                                          DestinationCard(
+                                            destination:
+                                                "Independence hall",
+                                          ),
+                                        ],
+                                      )
+                                    ],
+                                  ),
                                 ),
                               ),
-                            ),
-                        separatorBuilder: (context, _) => const Space(
-                              height: AppSizing.h_24,
-                            ),
-                        itemCount: 5))
-              ],
-            ),
-          ),
+                              Container(
+                                color: AppColors.greyLight,
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Expanded(
+                                        flex: 1,
+                                        child: TextButton(
+                                            onPressed: () => {},
+                                            child: Text(
+                                              "View Details".toUpperCase(),
+                                              style: const TextStyle(
+                                                  fontSize: AppFontSizes.fs_12),
+                                            ))),
+                                    Divider(
+                                      height: AppSizing.h_24,
+                                      thickness: 8,
+                                      color: AppColors.primary,
+                                    ),
+                                    Expanded(
+                                      flex: 1,
+                                      child: TextButton(
+                                        onPressed: () => {},
+                                        child: Text(
+                                          "Go to map".toUpperCase(),
+                                          style: const TextStyle(
+                                              fontSize: AppFontSizes.fs_12),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                    separatorBuilder: (context, _) => const Space(
+                          height: AppSizing.h_24,
+                        ),
+                    itemCount: 5))
+          ],
         ));
   }
 }
@@ -124,7 +162,7 @@ class DestinationCard extends StatelessWidget {
         destination,
         style: Theme.of(context).textTheme.bodySmall!.copyWith(
               fontWeight: FontWeight.bold,
-              color: Theme.of(context).primaryColor,
+              color: AppColors.white,
             ),
       ),
     );

@@ -17,7 +17,16 @@ const AuthContext = createContext();
 function useAuthContext() {
   const { isLoadingUser, user, isAuthenticated } = useUser();
   // const { isLoadingRoutes, routes } = useRoutes();
-  const routes = ["Dashboard", "Buses", "Drivers", "Users", "Manages"];
+  const routes = [
+    "Dashboard",
+    "Buses",
+    "Drivers",
+    "Users",
+    "Notifications",
+    "Feedback",
+    "Managers",
+    "Account"
+  ];
 
   // const role = user?.user_metadata?.role;
   const isLoadingRoutes = true;

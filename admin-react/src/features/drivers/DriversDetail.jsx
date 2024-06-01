@@ -9,7 +9,10 @@ function DriversDetail() {
     <>
       <Heading> Drivers </Heading>
       <DriversLayout>
+        <div>
+
         <DriversForm />
+        </div>
         <DriversListings />
       </DriversLayout>
     </>

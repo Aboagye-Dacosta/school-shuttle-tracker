@@ -1,8 +1,12 @@
+import UsersContextProvider from "../context/UsersContext";
+import UsersDetail from "../features/users/UsersDetail";
 
 function Users() {
   return (
-    <div>Users</div>
-  )
+    <UsersContextProvider>
+      <UsersDetail />
+    </UsersContextProvider>
+  );
 }
 
-export default Users
+export default Users;
