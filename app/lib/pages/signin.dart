@@ -2,7 +2,9 @@ import "package:app/presentation/sizing.dart";
 import "package:app/ui/app_logo.dart";
 import "package:app/ui/button.dart";
 import "package:app/ui/input.dart";
+import "package:app/ui/space.dart";
 import "package:flutter/material.dart";
+import 'package:get/get.dart';
 
 // ignore: must_be_immutable
 class SignIn extends StatelessWidget {
@@ -13,64 +15,61 @@ class SignIn extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(AppSizing.h_24),
-        child: Column(
-          children: [
-            const Expanded(child: AppLogo()),
-            Expanded(
-                child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            vertical: AppSizing.h_32,
+            horizontal: AppSizing.h_32,
+          ),
+          child: SingleChildScrollView(
+            child: Column(
               children: [
-                Input(controller: controller, label: "your name"),
-                const SizedBox(
-                  height: AppSizing.h_16,
+                Text("Log in",
+                    style: Theme.of(context).textTheme.headlineMedium),
+                const Space(),
+                const AppLogo(
+                  width: AppSizing.h_120,
                 ),
-                Input(controller: controller, label: "your name"),
-                const SizedBox(
-                  height: AppSizing.h_16,
-                ),
+                const Space(),
+                Input(controller: controller, label: "Email"),
+                const Space(),
+
+                Input(controller: controller, label: "Password"),
+                const Space(),
+
                 Row(
+                  mainAxisSize: MainAxisSize.max,
                   children: [
-                    Flexible(
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Checkbox(value: checked, onChanged: (value) => {}),
-                          const SizedBox(width: AppSizing.h_8),
-                          const Text("remember me")
-                        ],
-                      ),
-                    ),
-                    TextButton(
-                        onPressed: () => {},
-                        child: const Text("Forgotten password",
-                            style: TextStyle(fontSize: AppFontSizes.fs_12)))
+                    Checkbox(value: checked, onChanged: (value) => {}),
+                    const SizedBox(width: AppSizing.h_8),
+                    const Text(
+                      "remember me",
+                      style: TextStyle(fontSize: AppFontSizes.fs_12),
+                    )
                   ],
                 ),
-                const SizedBox(
-                  height: AppSizing.h_16,
-                ),
+
+                const Space(),
+
                 Button(
-                  child: const Text("Sign in"),
-                  onPressed: () => {},
+                  label: "Sign in",
+                  onPressed: () => {Get.toNamed("/root")},
                 ),
-                const SizedBox(
-                  height: AppSizing.h_16,
-                ),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    const Text("Does not have an account "),
-                    // const SizedBox(width: AppSizing.s_4),
-                    TextButton(
-                        onPressed: () => {}, child: const Text("register"))
-                  ],
-                )
+                const Space(),
+
+                TextButton(
+                    onPressed: () => {},
+                    child: const Text("Forgotten password",
+                        style: TextStyle(fontSize: AppFontSizes.fs_12))),
+
+                const Text("Do not have an account "),
+                // const SizedBox(width: AppSizing.s_4),
+                TextButton(
+                    onPressed: () => {Get.toNamed("/register")},
+                    child: const Text("register"))
               ],
-            ))
-          ],
+            ),
+          ),
         ),
       ),
     );

@@ -18,6 +18,7 @@ class DestinationsCard extends StatelessWidget {
       },
       child: Card(
         color: AppColors.primary,
+        clipBehavior: Clip.antiAliasWithSaveLayer,
         child: SizedBox(
           width: double.infinity,
           child: Stack(

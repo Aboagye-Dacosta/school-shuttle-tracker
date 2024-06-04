@@ -2,19 +2,22 @@ import "package:app/presentation/colors.dart";
 import "package:app/presentation/sizing.dart";
 import "package:flutter/material.dart";
 
-ButtonStyle raisedButtonStyle(context) => ElevatedButton.styleFrom(
+ButtonStyle raisedButtonStyle(
+        {required double verticalPadding, required double horizontalPadding}) =>
+    ElevatedButton.styleFrom(
       backgroundColor: AppColors.primary,
-      padding: const EdgeInsets.symmetric(
-          horizontal: AppPadding.p_24, vertical: AppPadding.p_16),
+      padding: EdgeInsets.symmetric(
+          horizontal: horizontalPadding, vertical: verticalPadding),
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.all(Radius.circular(20)),
       ),
     );
 
 class Button extends StatelessWidget {
-  final Widget? child;
+  final String label;
   final Function()? onPressed;
-  const Button({super.key, this.child, this.onPressed});
+  final double verticalPadding;
+  const Button({super.key, required this.label, this.onPressed, this.verticalPadding = AppPadding.p_16});
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +25,10 @@ class Button extends StatelessWidget {
       width: double.maxFinite,
       child: ElevatedButton(
         onPressed: onPressed,
-        style: raisedButtonStyle(context),
-        child: child,
+        style: raisedButtonStyle(
+            horizontalPadding: AppPadding.p_16,
+            verticalPadding: AppPadding.p_8),
+        child: Text(label,style: TextStyle(color: AppColors.greyLight),),
       ),
     );
   }

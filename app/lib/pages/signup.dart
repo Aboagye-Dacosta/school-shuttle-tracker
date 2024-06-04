@@ -1,3 +1,5 @@
+import 'package:app/ui/app_logo.dart';
+import 'package:app/ui/space.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
@@ -16,49 +18,52 @@ class SignUP extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     bool checked = false;
+
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(AppSizing.h_24),
-        child: Column(
-          children: [
-            Text("Register",style: Theme.of(context).textTheme.headlineMedium),
-            Expanded(child: svg),
-            Expanded(
-                child: Column(
+      body: SafeArea(
+        child: Padding(
+          padding: const EdgeInsets.symmetric(
+            vertical: AppSizing.h_32,
+            horizontal: AppSizing.h_32,
+          ),
+          child: SingleChildScrollView(
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
               children: [
+                Text("Register",
+                    style: Theme.of(context).textTheme.headlineMedium),
+                const Space(),
+                const AppLogo(
+                  width: AppSizing.h_120,
+                ),
+                const Space(),
                 Input(controller: controller, label: "your username"),
-                const SizedBox(
-                  height: AppSizing.h_16,
-                ),
+                const Space(),
                 Input(controller: controller, label: "your email"),
-                const SizedBox(
-                  height: AppSizing.h_16,
-                ),
+                const Space(),
+
                 Input(
                   controller: controller,
                   label: "your password",
                   hidden: true,
                 ),
-                const SizedBox(
-                  height: AppSizing.h_16,
-                ),
+                const Space(),
 
-                
                 Button(
-                  child: const Text("Register"),
+                  label:"Register",
                   onPressed: () => {},
                 ),
-                const SizedBox(
-                  height: AppSizing.h_16,
-                ),
+                const Space(),
+
                 const Text("Already have an account"),
                 // const SizedBox(width: AppSizing.s_4),
-                TextButton(onPressed: () => {}, child: const Text("register"))
+                TextButton(
+                    onPressed: () => {Navigator.of(context).pop()},
+                    child: const Text("sign in"))
               ],
-            ))
-          ],
+            ),
+          ),
         ),
       ),
     );

@@ -11,17 +11,27 @@ class RouteListings extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        const CustomAppBar(appTitle: "Routes Listings"),
-        const Space(),
-        Expanded(
-          child: ListView.separated(
-              itemBuilder: (context, _) => const RouteCard(),
-              separatorBuilder: (context, _) => const Space(),
-              itemCount: 5),
-        )
-      ],
+    return Scaffold(
+      body: SafeArea(
+        child: Padding(
+            padding: const EdgeInsets.symmetric(
+            vertical: AppSizing.h_16,
+            horizontal: AppSizing.h_32,
+          ),
+          child: Column(
+            children: [
+              const CustomAppBar(appTitle: "Routes Listings",hasBackBtn: true,),
+              const Space(),
+              Expanded(
+                child: ListView.separated(
+                    itemBuilder: (context, _) => const RouteCard(),
+                    separatorBuilder: (context, _) => const Space(),
+                    itemCount: 5),
+              )
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
@@ -33,6 +43,7 @@ class RouteCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       color: AppColors.white,
+      clipBehavior: Clip.antiAliasWithSaveLayer,
       child: Column(
         children: [
           SizedBox(
@@ -57,50 +68,54 @@ class RouteCard extends StatelessWidget {
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Flexible(
-                  child: Row(
-                    mainAxisSize: MainAxisSize.min,
-                    children: [
-                      Container(
-                        margin: const EdgeInsets.only(right: 2),
-                        padding: const EdgeInsets.symmetric(
-                            vertical: AppPadding.p_4,
-                            horizontal: AppPadding.p_16),
-                        decoration: BoxDecoration(
-                            color: AppColors.primary,
-                            borderRadius:
-                                BorderRadius.circular(AppSizing.h_54)),
-                        child: Text(
-                          "4 stops",
-                          style: TextStyle(
-                            fontSize: AppFontSizes.fs_8,
-                            fontWeight: FontWeight.bold,
-                            color: AppColors.white,
+          Container(
+            color: AppColors.white,
+            width: double.infinity,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Flexible(
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(right: 2),
+                          padding: const EdgeInsets.symmetric(
+                              vertical: AppPadding.p_4,
+                              horizontal: AppPadding.p_16),
+                          decoration: BoxDecoration(
+                              color: AppColors.primary,
+                              borderRadius:
+                                  BorderRadius.circular(AppSizing.h_54)),
+                          child: Text(
+                            "4 stops",
+                            style: TextStyle(
+                              fontSize: AppFontSizes.fs_8,
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.white,
+                            ),
                           ),
                         ),
-                      ),
-                      Text(
-                        "along the way",
-                        style: TextStyle(
-                            fontSize: AppFontSizes.fs_12,
-                            fontWeight: FontWeight.bold),
-                      ),
-                    ],
+                        Text(
+                          "along the way",
+                          style: TextStyle(
+                              fontSize: AppFontSizes.fs_12,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                SizedBox(
-                  width: AppSizing.h_120,
-                  child: Button(
-                    onPressed: () => {},
-                    child: const Text("Switch"),
-                  ),
-                )
-              ],
+                  SizedBox(
+                    width: AppSizing.h_120,
+                    child: Button(
+                      onPressed: () => {},
+                      label:"Switch",
+                    ),
+                  )
+                ],
+              ),
             ),
           )
         ],

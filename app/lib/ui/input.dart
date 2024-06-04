@@ -29,10 +29,12 @@ class _InputState extends State<Input> {
       keyboardType: widget.type,
       textAlign: widget.align,
       obscureText: widget.hidden,
+      
       decoration: InputDecoration(
         fillColor: AppColors.greyLight,
         
         filled: true,
+        labelStyle: const TextStyle(fontSize: AppFontSizes.fs_12),
         label: Text(widget.label),
         contentPadding: const EdgeInsets.symmetric(horizontal: AppSizing.h_8),
         border: OutlineInputBorder(

@@ -3,6 +3,7 @@ import "package:app/presentation/sizing.dart";
 import "package:app/ui/app_bar.dart";
 import "package:app/ui/space.dart";
 import "package:flutter/material.dart";
+import "package:get/get.dart";
 
 class BusListings extends StatelessWidget {
   const BusListings({super.key});
@@ -20,6 +21,7 @@ class BusListings extends StatelessWidget {
             Expanded(
                 child: ListView.separated(
                     itemBuilder: (context, _) => Card(
+                          clipBehavior: Clip.antiAliasWithSaveLayer,
                           color: AppColors.white,
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
@@ -40,8 +42,7 @@ class BusListings extends StatelessWidget {
                                             .headlineSmall!
                                             .copyWith(
                                                 fontWeight: FontWeight.bold,
-                                                fontSize:
-                                                    AppFontSizes.fs_16,
+                                                fontSize: AppFontSizes.fs_16,
                                                 color: AppColors.primary),
                                       ),
                                       const Space(
@@ -79,8 +80,7 @@ class BusListings extends StatelessWidget {
                                             .textTheme
                                             .bodyMedium!
                                             .copyWith(
-                                                fontWeight:
-                                                    FontWeight.bold),
+                                                fontWeight: FontWeight.bold),
                                       ),
                                       const Space(
                                         height: AppSizing.h_8,
@@ -95,8 +95,7 @@ class BusListings extends StatelessWidget {
                                             width: AppSizing.h_8,
                                           ),
                                           DestinationCard(
-                                            destination:
-                                                "Independence hall",
+                                            destination: "Independence hall",
                                           ),
                                         ],
                                       )
@@ -112,7 +111,9 @@ class BusListings extends StatelessWidget {
                                     Expanded(
                                         flex: 1,
                                         child: TextButton(
-                                            onPressed: () => {},
+                                            onPressed: () => {
+                                              Get.toNamed("/busDetail")
+                                            },
                                             child: Text(
                                               "View Details".toUpperCase(),
                                               style: const TextStyle(

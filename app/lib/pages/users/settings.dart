@@ -2,6 +2,7 @@ import 'package:app/presentation/colors.dart';
 import 'package:app/ui/app_bar.dart';
 import 'package:app/ui/space.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../presentation/sizing.dart';
 
@@ -26,8 +27,7 @@ class Settings extends StatelessWidget {
                     children: [
                       ClipRRect(
                         clipBehavior: Clip.antiAlias,
-                        borderRadius:
-                            BorderRadius.circular(AppSizing.h_54 / 2),
+                        borderRadius: BorderRadius.circular(AppSizing.h_54 / 2),
                         child: Image.asset(
                           "assets/images/default-user.jpg",
                           width: AppSizing.h_54,
@@ -49,8 +49,7 @@ class Settings extends StatelessWidget {
                                       fontSize: AppSizing.h_16),
                             ),
                             Text("dacsolo10@gmail.com",
-                                style:
-                                    Theme.of(context).textTheme.bodySmall)
+                                style: Theme.of(context).textTheme.bodySmall)
                           ],
                         ),
                       )
@@ -58,30 +57,55 @@ class Settings extends StatelessWidget {
                   ),
                 ),
                 const Space(),
-                const ListTile(
-                  title: Text("Account"),
-                  leading: Icon(Icons.person),
+                SettingTile(
+                  icon: Icons.person,
+                  label: "Account",
+                  onPress: () => {},
                 ),
                 const Divider(),
-                const ListTile(
-                  title: Text("Feedback"),
-                  leading: Icon(Icons.feedback),
+                SettingTile(
+                  label: "Feedback",
+                  icon: Icons.feedback,
+                  onPress: () => {Get.toNamed("/feedback")},
                 ),
                 const Divider(),
-                const ListTile(
-                  title: Text("Rate Drivers"),
-                  leading: Icon(Icons.star),
+                SettingTile(
+                  label: "Rate Drivers",
+                  icon: Icons.star,
+                  onPress: () => {},
                 ),
                 const Divider(),
-                const ListTile(
-                  title: Text("Sign out"),
-                  leading: Icon(Icons.logout),
+                SettingTile(
+                  label: "Sign out",
+                  icon: Icons.logout,
+                  onPress: () => {},
                 )
               ],
             ),
           ))
         ],
       ),
+    );
+  }
+}
+
+class SettingTile extends StatelessWidget {
+  final IconData icon;
+  final String label;
+  final void Function() onPress;
+  const SettingTile({
+    super.key,
+    required this.icon,
+    required this.label,
+    required this.onPress,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return ListTile(
+      onTap: onPress,
+      title: Text(label),
+      leading: Icon(icon),
     );
   }
 }

@@ -58,7 +58,7 @@ function CreateBusForm() {
         <Input id="destination-2" />
       </FormRow>
 
-      <FormRow type="horizontal">
+      <FormRow >
         <Button type="reset" variation="secondary">
           Reset
         </Button>
