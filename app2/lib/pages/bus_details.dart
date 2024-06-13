@@ -1,6 +1,6 @@
-import 'package:app/presentation/sizing.dart';
-import 'package:app/ui/app_bar.dart';
-import 'package:app/ui/space.dart';
+import 'package:app2/presentation/sizing.dart';
+import 'package:app2/ui/app_bar.dart';
+import 'package:app2/ui/space.dart';
 import 'package:flutter/material.dart';
 
 class BusDetails extends StatelessWidget {
