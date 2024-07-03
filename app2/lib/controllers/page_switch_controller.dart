@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
 
 class PageSwitchController extends GetxController {
-  RxInt currentIndex = 1.obs;
+  RxString page = "home".obs;
 
-  void setCurrentIndex(int index) {
-    currentIndex.value = index;
+  void setPage(String currentPage) {
+    page.value = currentPage;
   }
 }

@@ -7,16 +7,18 @@ import 'package:flutter/material.dart';
 class StudentLandingPage extends StatelessWidget {
   const StudentLandingPage({super.key});
 
+  static String pageName = "home";
+
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(
+    return Padding(
+      padding: const EdgeInsets.symmetric(
           horizontal: AppPadding.p_24, vertical: AppPadding.p_16),
       child: SingleChildScrollView(
         child: Column(
           children: [
-            BusCarousel(),
-            Space(),
+            const BusCarousel(),
+            const Space(),
             DestinationsCard(),
           ],
         ),

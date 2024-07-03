@@ -1,10 +1,10 @@
-import 'package:app2/controllers/settings_toggle_controller.dart';
-import 'package:app2/pages/main_page.dart';
-import 'package:app2/pages/student/student_home_page.dart';
+import 'package:app2/pages/settings/controller/settings_controller.dart';
+import 'package:app2/pages/roo_body/main_page.dart';
+import 'package:app2/pages/student/home/student_home_page.dart';
 import 'package:flutter/material.dart';
 
 class DisplaySheet extends StatelessWidget {
-  final SettingsToggleController settingController;
+  final SettingsController settingController;
   const DisplaySheet({
     super.key,
     required this.settingController,

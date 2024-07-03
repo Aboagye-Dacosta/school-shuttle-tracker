@@ -1,3 +1,5 @@
+import 'package:app2/controllers/page_switch_controller.dart';
+import 'package:app2/pages/student/destinations/route_listings.dart';
 import 'package:app2/ui/space.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -6,19 +8,23 @@ import '../presentation/colors.dart';
 import '../presentation/sizing.dart';
 
 class DestinationsCard extends StatelessWidget {
-  const DestinationsCard({
+  DestinationsCard({
     super.key,
   });
+
+  final pageController = Get.put(PageSwitchController());
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Get.toNamed("/routesListings");
+        pageController.setPage(RouteListings.pageName);
       },
-      child: Card(
-        color: AppColors.greyLight,
-        clipBehavior: Clip.antiAliasWithSaveLayer,
+      child: Container(
+        decoration: BoxDecoration(  
+        color: AppColors.grey_700,
+          borderRadius: BorderRadius.circular(AppSizing.h_8)
+        ),
         child: SizedBox(
           width: double.infinity,
           child: Stack(

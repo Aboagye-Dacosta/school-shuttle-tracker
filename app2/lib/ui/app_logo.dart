@@ -6,7 +6,8 @@ const String assetName = 'assets/images/logo.svg';
 
 class AppLogo extends StatelessWidget {
   final double width;
-  const AppLogo({super.key, this.width = AppSizing.h_32});
+  final double height;
+  const AppLogo({super.key, this.width = AppSizing.h_32,  this.height = double.maxFinite});
 
   @override
   Widget build(BuildContext context) {

@@ -7,10 +7,13 @@ import "package:get/get.dart";
 class BusListings extends StatelessWidget {
   const BusListings({super.key});
 
+  static String pageName = "busListings";
+
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: AppPadding.p_24,vertical: AppPadding.p_16),
+        padding: const EdgeInsets.symmetric(
+            horizontal: AppPadding.p_24, vertical: AppPadding.p_16),
         child: Column(
           children: [
             Expanded(

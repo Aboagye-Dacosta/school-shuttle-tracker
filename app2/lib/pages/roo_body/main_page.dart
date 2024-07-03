@@ -12,6 +12,11 @@ class MainPage extends StatelessWidget {
       clipBehavior: Clip.antiAliasWithSaveLayer,
       decoration: BoxDecoration(
         color: AppColors.white,
+        image: const DecorationImage(
+          image: AssetImage("assets/images/background/bg-white.png"),
+          fit: BoxFit.cover,
+          opacity: 0.4,
+        ),
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(AppSizing.h_24),
           topRight: Radius.circular(

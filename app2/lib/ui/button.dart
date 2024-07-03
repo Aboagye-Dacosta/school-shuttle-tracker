@@ -9,7 +9,7 @@ ButtonStyle raisedButtonStyle(
       padding: EdgeInsets.symmetric(
           horizontal: horizontalPadding, vertical: verticalPadding),
       shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.all(Radius.circular(20)),
+        borderRadius: BorderRadius.all(Radius.circular(AppSizing.h_8)),
       ),
     );
 
@@ -17,18 +17,32 @@ class Button extends StatelessWidget {
   final String label;
   final Function()? onPressed;
   final double verticalPadding;
-  const Button({super.key, required this.label, this.onPressed, this.verticalPadding = AppPadding.p_16});
+  const Button(
+      {super.key,
+      required this.label,
+      this.onPressed,
+      this.verticalPadding = 10});
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: double.maxFinite,
+    return ConstrainedBox(
+      constraints: const BoxConstraints(
+        minWidth: double.infinity,
+      ),
       child: ElevatedButton(
         onPressed: onPressed,
         style: raisedButtonStyle(
             horizontalPadding: AppPadding.p_16,
-            verticalPadding: AppPadding.p_8),
-        child: Text(label,style: TextStyle(color: AppColors.greyLight),),
+            verticalPadding: verticalPadding),
+        child: Text(
+          label,
+          style: TextStyle(
+            color: AppColors.greyLight,
+            fontSize: AppFontSizes.fs_16,
+            fontWeight: FontWeight.bold,
+            letterSpacing: 0.5,
+          ),
+        ),
       ),
     );
   }

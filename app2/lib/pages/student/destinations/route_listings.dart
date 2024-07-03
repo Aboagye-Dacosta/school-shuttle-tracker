@@ -1,39 +1,31 @@
 import 'package:app2/presentation/colors.dart';
 import 'package:app2/presentation/sizing.dart';
-import 'package:app2/ui/app_bar.dart';
 import 'package:app2/ui/space.dart';
 import 'package:flutter/material.dart';
 
-import '../../ui/button.dart';
+import '../../../ui/button.dart';
 
 class RouteListings extends StatelessWidget {
   const RouteListings({super.key});
 
+  static String pageName = "destinations";
+
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.symmetric(
-            vertical: AppSizing.h_16,
-            horizontal: AppSizing.h_32,
-          ),
-          child: Column(
-            children: [
-              const CustomAppBar(
-                appTitle: "Routes Listings",
-                hasBackBtn: true,
-              ),
-              const Space(),
-              Expanded(
-                child: ListView.separated(
-                    itemBuilder: (context, _) => const RouteCard(),
-                    separatorBuilder: (context, _) => const Space(),
-                    itemCount: 5),
-              )
-            ],
-          ),
-        ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(
+        vertical: AppSizing.h_16,
+        horizontal: AppSizing.h_32,
+      ),
+      child: Column(
+        children: [
+          Expanded(
+            child: ListView.separated(
+                itemBuilder: (context, _) => const RouteCard(),
+                separatorBuilder: (context, _) => const Space(),
+                itemCount: 5),
+          )
+        ],
       ),
     );
   }
@@ -72,7 +64,7 @@ class RouteCard extends StatelessWidget {
             ),
           ),
           Container(
-            color: AppColors.white,
+            color: AppColors.grey_700,
             width: double.infinity,
             child: Padding(
               padding: const EdgeInsets.all(8.0),
@@ -89,7 +81,7 @@ class RouteCard extends StatelessWidget {
                               vertical: AppPadding.p_4,
                               horizontal: AppPadding.p_16),
                           decoration: BoxDecoration(
-                              color: AppColors.primary,
+                              color: AppColors.yellow,
                               borderRadius:
                                   BorderRadius.circular(AppSizing.h_54)),
                           child: Text(
@@ -143,15 +135,10 @@ class DestinationMark extends StatelessWidget {
           height: AppSizing.h_24,
           margin: const EdgeInsets.only(right: AppSizing.s_4),
           decoration: BoxDecoration(
-              color: AppColors.primary,
+              color: AppColors.grey_700,
               borderRadius: BorderRadius.circular(
                 AppSizing.h_24,
               )),
-          child: Center(
-              child: Text(
-            "1",
-            style: TextStyle(color: AppColors.white),
-          )),
         ),
         Container(
           width: AppSizing.h_54,
