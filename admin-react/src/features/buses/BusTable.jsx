@@ -5,7 +5,7 @@ import Table from "../../ui/Table";
 import BusTableRow from "./BusTableRow";
 
 function BusTable() {
-  const [searchParams, _] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const pageSize = Number(searchParams.get("count") ?? 10);
   return (
     <Table columns="1fr 2fr 2fr 3fr 3fr">

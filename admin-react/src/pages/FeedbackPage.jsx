@@ -1,10 +1,7 @@
+import FeedbacksListings from "../features/feedback/FeedbacksListings";
 
 function FeedbackPage() {
-  return (
-    <div>
-      Feedback
-    </div>
-  )
+  return <FeedbacksListings />;
 }
 
-export default FeedbackPage
+export default FeedbackPage;

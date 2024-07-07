@@ -10,6 +10,7 @@ import Row from "../../ui/Row";
 
 import { useMoveBack } from "../../hooks/useMoveBack";
 
+import { Link } from "react-router-dom";
 import { driversData } from "../../assets/data";
 import DriverDataBox from "./DriverDataBox";
 import DriversFormModal from "./DriversFormModal";
@@ -39,7 +40,7 @@ function DriverDetails() {
       <ButtonGroup>
         <Modal>
           <Modal.Open opens="delete-driver">
-            <Button size="small" variation="danger"  >
+            <Button size="small" variation="danger">
               <span>Delete Driver</span>
             </Button>
           </Modal.Open>
@@ -52,19 +53,21 @@ function DriverDetails() {
             />
           </Modal.Window>
           <Modal.Open opens="edit-driver">
-            <Button size="small"  >
+            <Button size="small">
               <span>Edit Driver</span>
             </Button>
           </Modal.Open>
 
           <Modal.Window name="edit-driver">
-           <DriversFormModal/>
+            <DriversFormModal />
           </Modal.Window>
         </Modal>
 
-      <Row type="horizontal">
-        <Button>Track in real time</Button>
-      </Row>
+        <Row type="horizontal">
+          <Button as={Link} to={`/drivers/${driverId}/map`}>
+            Track in real time
+          </Button>
+        </Row>
         <Button variation="secondary" onClick={moveBack}>
           Back
         </Button>

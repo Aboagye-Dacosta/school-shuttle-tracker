@@ -34,7 +34,7 @@ function BusRowActions({ id }) {
       </ButtonGroup>
 
       <Modal.Window name={`delete-${id}`}>
-        <ConfirmDelete resourceName="Bus" onConfirm={() => {}} />
+        <ConfirmDelete resourceName="Notification" onConfirm={() => {}} />
       </Modal.Window>
 
       <Modal.Window name={`edit-${id}`}>

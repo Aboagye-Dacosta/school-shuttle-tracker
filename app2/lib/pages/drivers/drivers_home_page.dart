@@ -1,12 +1,33 @@
+import 'package:app2/controllers/page_switch_controller.dart';
+import 'package:app2/pages/account/account_page.dart';
+import 'package:app2/pages/drivers/landing_page/landing_page.dart';
+import 'package:app2/pages/feedback/feedback_page.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../bus_details/bus_details.dart';
+import '../notification/notifications_page.dart';
+
+Map<String, Widget> pages = {
+  DriverLandingPage.routeName: DriverLandingPage(),
+  FeedbackPage.pageName: FeedbackPage(),
+  AccountPage.pageName: const AccountPage(),
+  NotificationsPage.pageName: const NotificationsPage(),
+  BusDetails.pageName: BusDetails()
+};
+
+Widget getPage(String key) {
+  return pages[key] as Widget;
+}
 
 class DriversHomePage extends StatelessWidget {
-  const DriversHomePage({super.key});
+  DriversHomePage({super.key});
+
+  final pageSwitchController =
+      Get.put<PageSwitchController>(PageSwitchController());
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Text("Drivers Page"),
-    );
+    return Obx(() => getPage(pageSwitchController.page.value));
   }
 }

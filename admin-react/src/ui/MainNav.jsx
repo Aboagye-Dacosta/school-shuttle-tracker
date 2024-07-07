@@ -1,8 +1,4 @@
-import
-  {
-    HiOutlineHome,
-    HiOutlineUsers
-  } from "react-icons/hi2";
+import { HiOutlineHome, HiOutlineUsers } from "react-icons/hi2";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { IoBusOutline } from "react-icons/io5";
 import { RiUserSettingsLine } from "react-icons/ri";
@@ -65,7 +61,7 @@ const icons = {
   managers: <RiUserSettingsLine />,
   notifications: <IoMdNotificationsOutline />,
   feedback: <VscFeedback />,
-  account: <VscAccount />
+  account: <VscAccount />,
 };
 
 function MainNav() {
@@ -73,7 +69,9 @@ function MainNav() {
 
   const displayRoutes = routes.map((route) => (
     <li key={route}>
-      <StyledNavLink to={`/${route.toLowerCase()}`}>
+      <StyledNavLink
+        to={`/${route.toLowerCase() == "buses" ? "" : route.toLowerCase()}`}
+      >
         {icons[route.toLowerCase()]}
         <span>{route.toUpperCase()}</span>
       </StyledNavLink>

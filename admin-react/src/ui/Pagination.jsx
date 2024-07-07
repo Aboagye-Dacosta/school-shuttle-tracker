@@ -1,7 +1,7 @@
 import { HiChevronLeft, HiChevronRight } from "react-icons/hi2";
 import { useSearchParams } from "react-router-dom";
-import Select from "./Select";
 import styled from "styled-components";
+import Select from "./Select";
 
 const StyledPagination = styled.div`
   width: 100%;
@@ -106,7 +106,10 @@ function Pagination({ count }) {
     <StyledPagination>
       <Paragraph>
         showing <span>{(currentPage - 1) * pageSize + 1}</span> to
-        <span>{currentPage == pageCount ? count : currentPage * pageSize}</span> of <span>{count}</span> items
+        <span>
+          {currentPage == pageCount ? count : currentPage * pageSize}
+        </span>{" "}
+        of <span>{count}</span> items
       </Paragraph>
       <Buttons>
         <span>Show:</span>

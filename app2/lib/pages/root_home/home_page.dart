@@ -13,6 +13,20 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  late DraggableScrollableController _controller;
+
+  @override
+  void initState() {
+    _controller = DraggableScrollableController();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return GetX<SettingsController>(
@@ -24,12 +38,13 @@ class _HomePageState extends State<HomePage> {
                 Settings(),
                 DraggableScrollableSheet(
                   snapAnimationDuration: const Duration(seconds: 5),
+                  controller: _controller,
                   snap: true,
                   initialChildSize:
-                      settingsController.openSettings.value ? 0.1 : 0.9,
-                  minChildSize: 0.1,
+                      settingsController.openSettings.value ? 0.05 : 0.9,
+                  minChildSize: 0.05,
                   maxChildSize: 0.9,
-                  builder: (context, controller) => const MainPage(
+                  builder: (context, controller) => MainPage(
                     child: DriversHomePage(),
                   ),
                 ),

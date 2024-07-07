@@ -31,9 +31,8 @@ function UsersTableActions({ id, status }) {
     <ButtonGroup>
       <Button
         size="small"
-        onClick={() =>
-        {
-          console.log(id)
+        onClick={() => {
+          console.log(id);
           setUserId(id);
           openLog();
         }}

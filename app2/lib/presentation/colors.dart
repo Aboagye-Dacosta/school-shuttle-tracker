@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 
-
 class AppColors {
-  static final Color grey_0 = HexColor.from("#fff");
+  static final Color grey_0 = HexColor.from("#ffffff");
   static final Color grey_50 = HexColor.from("#f9fafb");
   static final Color grey_100 = HexColor.from(" #f3f4f6");
   static final Color grey_200 = HexColor.from("#e5e7eb");
@@ -16,7 +15,7 @@ class AppColors {
 
   static final Color primary = HexColor.from("#a4133c");
   static final Color primaryAccent = HexColor.from("#ff4d6d");
-  
+
   static final Color greyLight = HexColor.from("#f9fcff");
   static final Color white = HexColor.from("#ffffff");
   static final Color yellow = HexColor.from("#854d0e");

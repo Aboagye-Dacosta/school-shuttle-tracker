@@ -25,7 +25,7 @@ List<AppRoute> routeList = [
   // AppRoute(route: "/home", widget: const Home()),
   AppRoute(route: "/routesListings", widget: const RouteListings()),
   AppRoute(route: "/feedback", widget: FeedbackPage()),
-  AppRoute(route: "/busDetail", widget: const BusDetails()),
+  AppRoute(route: "/busDetail", widget:  BusDetails()),
   AppRoute(route: "/notifications", widget: const NotificationsPage()),
   AppRoute(route: "/account", widget: AccountPage()),
 ];

@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 import Button from "../../ui/Button";
@@ -14,52 +13,85 @@ const options = [
 ];
 
 function CreateBusForm() {
-  const [status, setStatus] = useState("");
-  const { control } = useForm();
+  const {
+    control,
+    register,
+    handleSubmit,
+    formState: { errors },
+    reset,
+  } = useForm();
 
-  console.log(status);
+  const handleFormSubmit = (value) => {
+    console.log(value);
+  };
 
   return (
-    <form>
-      <FormRow label="Bus Number">
-        <Input id="busNumber" />
+    <form onSubmit={handleSubmit(handleFormSubmit)}>
+      <FormRow label="Bus Number" error={errors?.busNumber?.message}>
+        <Input
+          id="busNumber"
+          {...register("busNumber", {
+            required: {
+              message: "Bus number should be provided",
+              value: true,
+            },
+          })}
+        />
       </FormRow>
-      <FormRow label="Bus Image">
-        <FileInput id="busImage" />
+      <FormRow label="Bus Image" error={errors?.busImg?.message}>
+        <FileInput
+          id="busImage"
+          {...register("busImg", {
+            required: {
+              message: "Bus image should be provided",
+              value: true,
+            },
+          })}
+        />
       </FormRow>
-      <FormRow label="Select Status">
+      <FormRow label="Select Status" error={errors?.status?.message}>
         <ControlledSelect
-          name="cabin"
-          message={"cabin is required"}
+          name="status"
+          message={"Status is required"}
           control={control}
-          onChange={(e) => {
-            setStatus(e.target.value);
-          }}
         >
           <Select options={options} />
         </ControlledSelect>
       </FormRow>
-      <FormRow label="Select Driver">
+      <FormRow label="Select Driver" error={errors?.driver?.message}>
         <ControlledSelect
-          name="cabin"
-          message={"cabin is required"}
+          name="driver"
+          message={"Driver is required"}
           control={control}
-          onChange={(e) => {
-            setStatus(e.target.value);
-          }}
         >
           <Select options={options} />
         </ControlledSelect>
       </FormRow>
-      <FormRow label="Destination 1">
-        <Input id="destination-1" />
+      <FormRow label="Destination 1" error={errors?.destinationOne?.message}>
+        <Input
+          id="destination-1"
+          {...register("destinationOne", {
+            required: {
+              message: "Bus number should be provided",
+              value: true,
+            },
+          })}
+        />
       </FormRow>
-      <FormRow label="Destination 2">
-        <Input id="destination-2" />
+      <FormRow label="Destination 2" error={errors?.destinationTwo?.message}>
+        <Input
+          id="destination-2"
+          {...register("destinationTwo", {
+            required: {
+              message: "Bus number should be provided",
+              value: true,
+            },
+          })}
+        />
       </FormRow>
 
-      <FormRow >
-        <Button type="reset" variation="secondary">
+      <FormRow>
+        <Button type="reset" variation="secondary" onClick={reset}>
           Reset
         </Button>
         <Button>Submit</Button>

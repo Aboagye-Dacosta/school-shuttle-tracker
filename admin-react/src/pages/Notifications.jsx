@@ -1,8 +1,7 @@
+import NotificationsDetails from "../features/notifications/NotificationsDetails";
 
 function Notifications() {
-  return (
-    <div>Notifications</div>
-  )
+  return <NotificationsDetails />;
 }
 
-export default Notifications
+export default Notifications;

@@ -15,7 +15,7 @@ class MainPage extends StatelessWidget {
         image: const DecorationImage(
           image: AssetImage("assets/images/background/bg-white.png"),
           fit: BoxFit.cover,
-          opacity: 0.4,
+          opacity: 0.2,
         ),
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(AppSizing.h_24),

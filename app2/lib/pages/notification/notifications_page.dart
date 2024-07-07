@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 class NotificationsPage extends StatelessWidget {
   const NotificationsPage({super.key});
 
+  static String pageName = "notification";
   @override
   Widget build(BuildContext context) {
     return Scaffold(

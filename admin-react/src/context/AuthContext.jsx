@@ -18,7 +18,7 @@ function useAuthContext() {
   const { isLoadingUser, user, isAuthenticated } = useUser();
   // const { isLoadingRoutes, routes } = useRoutes();
   const routes = [
-    "Dashboard",
+    // "Dashboard",
     "Buses",
     "Drivers",
     "Users",

@@ -4,6 +4,15 @@ const GlobalStyle = createGlobalStyle`
     
 :root {
   /* Indigo */
+  /* --color-brand-50: #e01e37;
+  --color-brand-100: #da1e37;
+  --color-brand-200: #c71f37;
+  --color-brand-500: #b21e35;
+  --color-brand-600: #a11d33;
+  --color-brand-700: #85182a;
+  --color-brand-800: #6e1423;
+  --color-brand-900: #641220; */
+
   --color-brand-50: #6ede8a;
   --color-brand-100: #4ad66d;
   --color-brand-200: #2dc653;

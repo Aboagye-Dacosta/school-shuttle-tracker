@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 
 import Button from "../../ui/Button";
@@ -74,7 +74,9 @@ function BusDetail() {
         </Button>
       </ButtonGroup>
       <Row type="horizontal">
-        <Button>Track in real time</Button>
+        <Button as={Link} to={`/buses/${busId}/map`}>
+          Track in real time
+        </Button>
       </Row>
     </>
   );

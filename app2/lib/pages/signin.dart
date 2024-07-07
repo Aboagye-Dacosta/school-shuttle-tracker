@@ -17,88 +17,93 @@ class SignIn extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.white,
       body: SingleChildScrollView(
-        child: Container(
-          height: MediaQuery.of(context).size.height,
-          padding: const EdgeInsets.symmetric(vertical: 60),
-          width: double.infinity,
-          decoration: const BoxDecoration(
-            image: DecorationImage(
-              image: AssetImage(
-                "assets/images/background/bg-vertical-right.png",
-              ),
-              fit: BoxFit.cover,
-            ),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Icon(Icons.directions_bike_outlined, size: 120),
-              const Space(
-                height: 16,
-              ),
-              Text("Hello there!",
-                  style: Theme.of(context)
-                      .textTheme
-                      .headlineSmall!
-                      .copyWith(fontWeight: FontWeight.bold, fontSize: 32)),
-              Text("Doing good,let's sign you right in.",
-                  style: Theme.of(context).textTheme.headlineSmall!.copyWith(
-                      fontWeight: FontWeight.normal,
-                      fontSize: 16,
-                      color: AppColors.grey_900)),
-              const Space(
-                height: 34,
-              ),
-              Container(
-                padding: const EdgeInsets.all(24),
-                margin: const EdgeInsets.only(bottom: 24, left: 24, right: 24),
-                decoration: BoxDecoration(
-                    color: AppColors.white.withOpacity(0.7),
-                    borderRadius: BorderRadius.circular(24)),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Input(controller: controller, label: "Email"),
-                    const Space(),
-                    Input(controller: controller, label: "Password"),
-                    const Space(),
-
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Checkbox(value: checked, onChanged: (value) => {}),
-                        const SizedBox(width: AppSizing.h_8),
-                        const Text(
-                          "remember me",
-                          style: TextStyle(fontSize: AppFontSizes.fs_12),
-                        )
-                      ],
-                    ),
-
-                    const Space(),
-
-                    Button(
-                      label: "Sign in",
-                      onPressed: () =>
-                          {Navigator.of(context).pushReplacementNamed("/root")},
-                    ),
-                    const Space(),
-
-                    TextButton(
-                        onPressed: () => {},
-                        child: const Text("Forgotten password",
-                            style: TextStyle(fontSize: AppFontSizes.fs_12))),
-
-                    const Text("Do not have an account "),
-                    // const SizedBox(width: AppSizing.s_4),
-                    TextButton(
-                        onPressed: () =>
-                            {Navigator.of(context).pushNamed("/register")},
-                        child: const Text("register"))
-                  ],
+        child: ConstrainedBox(
+          constraints:
+              BoxConstraints(minHeight: MediaQuery.of(context).size.height),
+          child: Container(
+            padding: const EdgeInsets.only(top: 60),
+            width: double.infinity,
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage(
+                  "assets/images/background/bg-vertical-right.png",
                 ),
-              )
-            ],
+                fit: BoxFit.cover,
+              ),
+            ),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Icon(Icons.directions_bike_outlined, size: 120),
+                const Space(
+                  height: 16,
+                ),
+                Text("Hello there!",
+                    style: Theme.of(context)
+                        .textTheme
+                        .headlineSmall!
+                        .copyWith(fontWeight: FontWeight.bold, fontSize: 32)),
+                Text("Doing good,let's sign you right in.",
+                    style: Theme.of(context).textTheme.headlineSmall!.copyWith(
+                        fontWeight: FontWeight.normal,
+                        fontSize: 16,
+                        color: AppColors.grey_900)),
+                const Space(
+                  height: 34,
+                ),
+                Container(
+                  padding: const EdgeInsets.all(24),
+                  margin:
+                      const EdgeInsets.only(bottom: 24, left: 24, right: 24),
+                  decoration: BoxDecoration(
+                      color: AppColors.white.withOpacity(0.7),
+                      borderRadius: BorderRadius.circular(24)),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Input(controller: controller, label: "Email"),
+                      const Space(),
+                      Input(controller: controller, label: "Password"),
+                      const Space(),
+
+                      Row(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Checkbox(value: checked, onChanged: (value) => {}),
+                          const SizedBox(width: AppSizing.h_8),
+                          const Text(
+                            "remember me",
+                            style: TextStyle(fontSize: AppFontSizes.fs_12),
+                          )
+                        ],
+                      ),
+
+                      const Space(),
+
+                      Button(
+                        label: "Sign in",
+                        onPressed: () => {
+                          Navigator.of(context).pushReplacementNamed("/root")
+                        },
+                      ),
+                      const Space(),
+
+                      TextButton(
+                          onPressed: () => {},
+                          child: const Text("Forgotten password",
+                              style: TextStyle(fontSize: AppFontSizes.fs_12))),
+
+                      const Text("Do not have an account "),
+                      // const SizedBox(width: AppSizing.s_4),
+                      TextButton(
+                          onPressed: () =>
+                              {Navigator.of(context).pushNamed("/register")},
+                          child: const Text("register"))
+                    ],
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),
