@@ -13,13 +13,19 @@ class BusController extends GetxController {
     "destinationTwo": {"destination": "", "coordinate": ""},
   }).obs;
   RxBool isLoadingBus = false.obs;
+  RxList<String> busNumberList = List<String>.empty(growable: true).obs;
 
   final destinationsController = Get.put(DestinationsController());
+
+  @override
+  onInit() {
+    getBusNumberList();
+    super.onInit();
+  }
 
   Future<void> getBusByBusId(String busId) async {}
 
   Future<bool> getBusByDriverId(String driverId) async {
-    print("❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️ entered here");
     isLoadingBus.value = true;
 
     await Future.delayed(const Duration(seconds: 5), () {
@@ -45,8 +51,19 @@ class BusController extends GetxController {
 
       isLoadingBus.value = false;
     });
-    print("❤️❤️❤️❤️❤️❤️❤️❤️❤️❤️ got here");
 
     return true;
+  }
+
+  Future<void> getBusNumberList() async {
+    const busNumbers = [
+      "38439laklel"
+          "38439laklel",
+      "38439laklel",
+    ];
+
+    Future.delayed(const Duration(seconds: 5), () {
+      busNumberList.value = busNumbers;
+    });
   }
 }

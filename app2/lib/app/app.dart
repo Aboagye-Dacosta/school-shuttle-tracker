@@ -13,6 +13,7 @@ import 'package:app2/presentation/colors.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../pages/map/map_page.dart';
 import '../presentation/routes.dart';
 
 List<AppRoute> routeList = [
@@ -28,6 +29,7 @@ List<AppRoute> routeList = [
   AppRoute(route: "/busDetail", widget:  BusDetails()),
   AppRoute(route: "/notifications", widget: const NotificationsPage()),
   AppRoute(route: "/account", widget: AccountPage()),
+  AppRoute(route: MapPage.pageName, widget: const MapPage()),
 ];
 
 class App extends StatelessWidget {

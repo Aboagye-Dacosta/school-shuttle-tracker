@@ -7,13 +7,15 @@ import 'package:get/get.dart';
 
 import '../bus_details/bus_details.dart';
 import '../notification/notifications_page.dart';
+import 'bus_settings/bus_setting_page.dart';
 
 Map<String, Widget> pages = {
   DriverLandingPage.routeName: DriverLandingPage(),
   FeedbackPage.pageName: FeedbackPage(),
   AccountPage.pageName: const AccountPage(),
   NotificationsPage.pageName: const NotificationsPage(),
-  BusDetails.pageName: BusDetails()
+  BusDetails.pageName: BusDetails(),
+  BusSettingsPage.pageName: BusSettingsPage()
 };
 
 Widget getPage(String key) {

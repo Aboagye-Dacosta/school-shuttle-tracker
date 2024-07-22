@@ -3,6 +3,7 @@ import 'package:app2/presentation/colors.dart';
 import 'package:app2/ui/custom_empty_list_card.dart';
 import 'package:app2/ui/select_input_field.dart';
 import 'package:app2/ui/space.dart';
+import 'package:dropdown_textfield/dropdown_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -10,6 +11,9 @@ import 'package:get/get.dart';
 import '../../../controllers/page_switch_controller.dart';
 import '../../../ui/button.dart';
 import '../../bus_details/bus_details.dart';
+import '../../map/map_page.dart';
+import '../bus_settings/bus_setting_page.dart';
+import 'controller/bus_status_controller.dart';
 import 'controller/destinations_controller.dart';
 import 'controller/drivers_controller.dart';
 import 'controller/saved_locations_controller.dart';
@@ -26,6 +30,8 @@ class DriverLandingPage extends StatelessWidget {
   final savedBusLocationsController = Get.put<SavedLocations>(SavedLocations());
   final pageSwitchController =
       Get.put<PageSwitchController>(PageSwitchController());
+  final busStatusController =
+      Get.put<BusStatusController>(BusStatusController());
 
   @override
   Widget build(BuildContext context) {
@@ -56,17 +62,17 @@ class DriverLandingPage extends StatelessWidget {
                           label: "Bus Details", onPressed: () {
                         pageSwitchController.setPage(BusDetails.pageName);
                       }),
-                      _busDetailAndSettingCard(
-                        context,
-                        icon: InfiniteAnimation(
-                          durationInSeconds: 4,
-                          child: SvgPicture.asset(
-                            "assets/images/icons/icon-settings.svg",
-                            width: 32,
+                      _busDetailAndSettingCard(context,
+                          icon: InfiniteAnimation(
+                            durationInSeconds: 4,
+                            child: SvgPicture.asset(
+                              "assets/images/icons/icon-settings.svg",
+                              width: 32,
+                            ),
                           ),
-                        ),
-                        label: "Bus Settings",
-                      ),
+                          label: "Bus Settings", onPressed: () {
+                        pageSwitchController.setPage(BusSettingsPage.pageName);
+                      }),
                     ],
                   ),
                   const Space(),
@@ -90,7 +96,30 @@ class DriverLandingPage extends StatelessWidget {
                       style: ElevatedButton.styleFrom(
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(8))),
-                      onPressed: () {},
+                      onPressed: () {
+                        if (!busStatusController.busStatus.value) {
+                          Get.snackbar(
+                            "Location on Map",
+                            "You can not follow bus on mas while bus is inactive",
+                            backgroundColor: AppColors.grey_200,
+                            isDismissible: true,
+                            dismissDirection: DismissDirection.startToEnd,
+                            animationDuration:
+                                const Duration(milliseconds: 200),
+                            duration: const Duration(seconds: 7),
+                            mainButton: TextButton(
+                              onPressed: () {
+                                busStatusController.toggleBusStatus();
+                                Get.closeCurrentSnackbar();
+                              },
+                              child: const Text("Activate"),
+                            ),
+                            snackPosition: SnackPosition.BOTTOM,
+                          );
+                        } else {
+                          Navigator.pushNamed(context, MapPage.pageName);
+                        }
+                      },
                       child: const Text("Check location on map"),
                     ),
                   ),
@@ -156,7 +185,10 @@ class DriverLandingPage extends StatelessWidget {
                     label: "Choose start location",
                     isEnabled: destinationsController.editable.value,
                     controller: destinationsController.startLocationController,
-                    items: destinationsController.locations,
+                    items: destinationsController.locations
+                        .map((item) => DropDownValueModel(
+                            name: item.destination, value: item))
+                        .toList(),
                     onChange: (value) =>
                         destinationsController.setStartLocation(value.value),
                   ),
@@ -166,7 +198,10 @@ class DriverLandingPage extends StatelessWidget {
                     label: "Choose destination",
                     controller:
                         destinationsController.destinationLocationController,
-                    items: destinationsController.locations,
+                    items: destinationsController.locations
+                        .map((item) => DropDownValueModel(
+                            name: item.destination, value: item))
+                        .toList(),
                     onChange: (value) => destinationsController
                         .setDestinationLocation(value.value),
                   ),
@@ -257,19 +292,31 @@ class DriverLandingPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              InkWell(
-                onTap: () {},
+              GestureDetector(
+                onTap: () {
+                  busStatusController.toggleBusStatus();
+                },
                 child: Container(
                   width: 60,
                   height: 60,
                   decoration: BoxDecoration(
-                      color: AppColors.primary,
+                      color: busStatusController.busStatus.value
+                          ? AppColors.grey_0
+                          : AppColors.primary,
                       borderRadius: BorderRadius.circular(30)),
                   child: Center(
-                    child: Icon(
-                      Icons.power_settings_new_sharp,
-                      color: AppColors.grey_0,
-                    ),
+                    child: busStatusController.loading.value
+                        ? CircularProgressIndicator(
+                            color: busStatusController.busStatus.value
+                                ? AppColors.primary
+                                : AppColors.grey_0,
+                          )
+                        : Icon(
+                            Icons.power_settings_new_sharp,
+                            color: busStatusController.busStatus.value
+                                ? AppColors.primary
+                                : AppColors.grey_0,
+                          ),
                   ),
                 ),
               ),
@@ -277,7 +324,13 @@ class DriverLandingPage extends StatelessWidget {
                 height: 8,
               ),
               Text(
-                "Activate Location",
+                busStatusController.loading.value &&
+                        !busStatusController.busStatus.value
+                    ? "Activating ..."
+                    : busStatusController.loading.value &&
+                            busStatusController.busStatus.value
+                        ? "Deactivating ..."
+                        : "Activate Location",
                 style: Theme.of(context).textTheme.headlineSmall!.copyWith(
                     fontWeight: FontWeight.bold,
                     color: AppColors.grey_0,

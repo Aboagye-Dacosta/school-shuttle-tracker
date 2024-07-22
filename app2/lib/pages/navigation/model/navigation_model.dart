@@ -1,59 +1,59 @@
 import 'package:flutter/material.dart';
 
-class SettingsTab {
+class NavigationTab {
   final IconData icon;
   final String title;
   final String? page;
   final bool hasPage;
 
-  SettingsTab(
+  NavigationTab(
       {required this.icon,
       required this.title,
       this.page,
       required this.hasPage});
 }
 
-List<SettingsTab> getSettingsTabs(String user) => user == "student"
+List<NavigationTab> getNavigationTabs(String user) => user == "student"
     ? [
-        SettingsTab(
+        NavigationTab(
             icon: Icons.home, title: "Home", hasPage: true, page: "home"),
-        SettingsTab(
+        NavigationTab(
             icon: Icons.person,
             title: "Account",
             hasPage: true,
             page: "account"),
-        SettingsTab(
+        NavigationTab(
             icon: Icons.feedback,
             title: "Feedback",
             hasPage: true,
             page: "feedback"),
-        SettingsTab(
+        NavigationTab(
             icon: Icons.notifications,
             title: "Notifications",
             hasPage: true,
             page: "notification"),
-        SettingsTab(
+        NavigationTab(
             icon: Icons.info, title: "Bus Logs", hasPage: true, page: "logs"),
-        SettingsTab(
+        NavigationTab(
             icon: Icons.star,
             title: "Rate Drivers",
             hasPage: true,
             page: "drivers_rating"),
       ]
     : [
-        SettingsTab(
+        NavigationTab(
             icon: Icons.home, title: "Home", hasPage: true, page: "home"),
-        SettingsTab(
+        NavigationTab(
             icon: Icons.person,
             title: "Account",
             hasPage: true,
             page: "account"),
-        SettingsTab(
+        NavigationTab(
             icon: Icons.feedback,
             title: "Feedback",
             hasPage: true,
             page: "feedback"),
-        SettingsTab(
+        NavigationTab(
             icon: Icons.notifications,
             title: "Notifications",
             hasPage: true,

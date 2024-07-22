@@ -7,7 +7,7 @@ import '../presentation/sizing.dart';
 class SelectTextField extends StatelessWidget {
   final String? Function(String? str)? validate;
   final SingleValueDropDownController controller;
-  final List<Destination> items;
+  final List<DropDownValueModel> items;
   final String label;
   final bool isEnabled;
   final void Function(dynamic string)? onChange;
@@ -41,8 +41,6 @@ class SelectTextField extends StatelessWidget {
               borderSide: const BorderSide(width: AppSizing.s_2),
               borderRadius: BorderRadius.circular(AppSizing.h_8)),
         ),
-        dropDownList: items
-            .map((item) => DropDownValueModel(name: item.destination, value: item))
-            .toList());
+        dropDownList: items);
   }
 }

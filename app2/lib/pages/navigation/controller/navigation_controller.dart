@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class SettingsController extends GetxController {
+class NavigationController extends GetxController {
   RxString settingTab = "home".obs;
-  RxBool openSettings = false.obs;
+  RxBool openNavigation = false.obs;
   RxBool isPlaying = false.obs;
   late Rx<AnimationController> animationController;
 
   void setAnimateController(AnimationController controller) {
     animationController.value = controller;
   }
+
   void setDraggableController(AnimationController controller) {
     animationController.value = controller;
   }
@@ -18,8 +19,8 @@ class SettingsController extends GetxController {
     isPlaying.value = !isPlaying.value;
   }
 
-  void toggleSettings() {
-    openSettings.value = !openSettings.value;
+  void toggleNavigation() {
+    openNavigation.value = !openNavigation.value;
   }
 
   void setSettingTab(String tab) {

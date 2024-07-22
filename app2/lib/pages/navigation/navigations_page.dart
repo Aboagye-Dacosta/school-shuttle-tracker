@@ -1,6 +1,6 @@
 import 'package:app2/controllers/page_switch_controller.dart';
-import 'package:app2/pages/settings/controller/settings_controller.dart';
-import 'package:app2/pages/settings/model/settings_model.dart';
+import 'package:app2/pages/navigation/controller/navigation_controller.dart';
+import 'package:app2/pages/navigation/model/navigation_model.dart';
 import 'package:app2/presentation/colors.dart';
 import 'package:app2/presentation/sizing.dart';
 import 'package:app2/ui/custom_sttings_tile.dart';
@@ -10,20 +10,20 @@ import 'package:get/get.dart';
 
 import '../../controllers/user_switch_controller.dart';
 
-class Settings extends StatefulWidget {
-  Settings({
+class Navigation extends StatefulWidget {
+  const Navigation({
     super.key,
   });
 
   @override
-  State<Settings> createState() => _SettingsState();
+  State<Navigation> createState() => _NavigationState();
 }
 
-class _SettingsState extends State<Settings>
+class _NavigationState extends State<Navigation>
     with SingleTickerProviderStateMixin {
   late PageSwitchController pageController;
   late AnimationController _animationController;
-  late SettingsController settingsController;
+  late NavigationController navigationController;
   late UsersController _usersController;
 
   bool isPlaying = false;
@@ -32,7 +32,8 @@ class _SettingsState extends State<Settings>
   void initState() {
     super.initState();
     pageController = Get.put(PageSwitchController());
-    settingsController = Get.put<SettingsController>(SettingsController());
+    navigationController =
+        Get.put<NavigationController>(NavigationController());
     _usersController = Get.put<UsersController>(UsersController());
     _animationController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 300));
@@ -102,20 +103,20 @@ class _SettingsState extends State<Settings>
                       height: 12,
                     ),
                     Obx(() => Column(
-                        children: getSettingsTabs(_usersController.user.value)
+                        children: getNavigationTabs(_usersController.user.value)
                             .map((tab) => SettingTile(
                                   icon: tab.icon,
                                   label: tab.title,
                                   onPress: () {
                                     if (tab.hasPage) {
-                                      settingsController.settingTab(tab.page);
+                                      navigationController.settingTab(tab.page);
                                       pageController.setPage(tab.page!);
                                       _handleOnPressed();
                                     }
                                   },
                                   tab: tab.page,
                                   selectedTab:
-                                      settingsController.settingTab.value,
+                                      navigationController.settingTab.value,
                                 ))
                             .toList())),
                     const Divider(),
@@ -146,11 +147,11 @@ class _SettingsState extends State<Settings>
                 ),
                 actions: [
                   Obx(() => pageController.page.value != "home" &&
-                          settingsController.openSettings.value == false
+                          navigationController.openNavigation.value == false
                       ? IconButton.filled(
                           onPressed: () {
                             pageController.setPage("home");
-                            settingsController.settingTab("home");
+                            navigationController.settingTab("home");
                           },
                           icon: const Icon(
                             Icons.home,
@@ -170,13 +171,13 @@ class _SettingsState extends State<Settings>
   @override
   void dispose() {
     _animationController.dispose();
-    settingsController.dispose();
+    navigationController.dispose();
     pageController.dispose();
     super.dispose();
   }
 
   void _handleOnPressed() {
-    settingsController.toggleSettings();
+    navigationController.toggleNavigation();
     setState(() {
       isPlaying = !isPlaying;
       isPlaying
