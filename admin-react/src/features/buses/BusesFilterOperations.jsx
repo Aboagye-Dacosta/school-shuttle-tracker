@@ -4,6 +4,10 @@ import SearchFilter from "../../ui/SearchFilter";
 const searchableProps = ["destinations", "bus number"];
 const filterOptions = [
   {
+    label: "All",
+    value: "all",
+  },
+  {
     label: "Active",
     value: "active",
   },

@@ -5,7 +5,6 @@ import 'package:app2/pages/navigation/navigations_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../student/home/student_home_page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});

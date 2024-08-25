@@ -1,13 +1,16 @@
 import UsersTableRow from "./UsersTableRow";
 
-import { usersData } from "../../assets/data";
-
 import Menus from "../../ui/Menus";
 import Pagination from "../../ui/Pagination";
 import Table from "../../ui/Table";
+import { useUsers } from "./useUsers";
+import LoadingPage from "../../ui/LoadindPage";
 
 function UsersTable() {
+  const { users = [], isLoadingUsers } = useUsers();
   return (
+    <>
+      {isLoadingUsers && <LoadingPage />}
     <Menus>
       <Table columns="5rem 1fr 1.5fr 1fr 1fr 1fr">
         <Table.Header>
@@ -19,12 +22,13 @@ function UsersTable() {
           <div></div>
         </Table.Header>
         <Table.Body
-          data={Array.from({ length: 10 }, (_,i) => ({ ...usersData[0], id: i }))}
+          data={users}
           render={(data) => <UsersTableRow data={data} />}
         />
-        <Pagination count={100} />
+        <Pagination count={users?.length ?? 0} />
       </Table>
     </Menus>
+    </>
   );
 }
 

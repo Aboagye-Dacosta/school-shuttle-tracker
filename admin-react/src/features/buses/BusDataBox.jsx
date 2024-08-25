@@ -1,13 +1,9 @@
+import PropTypes from "prop-types"
 import { format } from "date-fns";
-import { Fragment } from "react";
 import styled, { css } from "styled-components";
 
 import Heading from "../../ui/Heading";
 import Row from "../../ui/Row";
-
-import { busData } from "../../assets/data";
-
-
 
 const Card = styled.div`
   background-color: var(--color-grey-0);
@@ -51,52 +47,45 @@ const StyledRow = styled(Row)`
     `}
 `;
 
-function BusDataBox() {
-  const {
-    image,
-    /* id: busId, */
-    driver,
-    created_at,
-    busNumber,
-    destinations,
-  } = busData[0];
+function BusDataBox({bus = {}}) {
+  const { busImage, busNumber, createdAt, destinationOne, destinationTwo } = bus;
+ 
+  console.log(bus)
 
   return (
     <Card>
       <StyledRow type="horizontal">
         <Image>
-          <img src={image} />
+          <img src={busImage} />
         </Image>
         <StyledRow>
           <StyledRow type="horizontal" justify="between">
             <Sub>
               <Row type="horizontal">
-                <span>Driver&apos;s name</span>
-                <Name>{driver}</Name>
+                <span>Bus Number</span>
+                <Name>{busNumber}</Name>
               </Row>
             </Sub>
             <Sub>
               <span>created at</span>
-              {format(new Date(created_at), "MMM dd yyyy")}
+              {format(new Date(Date.now()), "MMM dd yyyy")}
             </Sub>
           </StyledRow>{" "}
           <Sub>
             <span>Destinations</span>{" "}
-            {destinations.map((destination, index) => (
-              <Fragment key={destination}>
-                <text key={destination}> {destination}</text>
-                {index !== destinations.length - 1 && <text> &mdash;</text>}
-              </Fragment>
-            ))}
-          </Sub>{" "}
-          <Sub>
-            <span>Bus Number</span>
-            {busNumber}
+            <span> {destinationOne?.destination}</span>
+            &mdash;
+            <span> {destinationTwo?.destination}</span>
           </Sub>
+          
         </StyledRow>
       </StyledRow>
     </Card>
   );
+}
+
+BusDataBox.propTypes = {
+  bus: PropTypes.object
 }
 
 export default BusDataBox;

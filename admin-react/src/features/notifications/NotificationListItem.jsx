@@ -9,6 +9,8 @@ import ConfirmDelete from "../../ui/ConfirmDelete";
 import Modal from "../../ui/Modal";
 import Tag from "../../ui/Tag";
 import NotificationDetail from "./NotificationDetail";
+import { useDeleteNotification } from "./useDeleteNotification";
+import { useRef } from "react";
 
 const StyledNotificationListItem = styled.div`
   display: flex;
@@ -78,12 +80,15 @@ const ItemFooter = styled.div`
   }
 `;
 
-export default function NotificationListItem({ notification }) {
-  const { title, message, target, id, createdAt } = notification;
+export default function NotificationListItem ({ notification })
+{
+  const ref = useRef()
+  const { notificationTitle, notificationMessage, notificationTarget, id, createdAt } = notification;
+  const { deleteNotification,isDeletingNotification  } = useDeleteNotification();
   return (
     <StyledNotificationListItem>
       <ItemHeader>
-        <span>{title}</span>
+        <span>{notificationTitle}</span>
         <HeaderActions className="actions">
           <Modal>
             <ButtonGroup>
@@ -104,26 +109,37 @@ export default function NotificationListItem({ notification }) {
               <NotificationDetail notification={notification} />
             </Modal.Window>
             <Modal.Window name={`delete-${id}`}>
-              <ConfirmDelete resourceName="Notification" onConfirm={() => {}} />
+              <ConfirmDelete
+                ref={ref}
+                state={isDeletingNotification}
+                resourceName="Notification"
+                onConfirm={() => {
+                  deleteNotification(id, {
+                    onSettled() {
+                      ref?.current?.closeModal();
+                    },
+                  });
+                }}
+              />
             </Modal.Window>
           </Modal>
         </HeaderActions>
       </ItemHeader>
       <ItemBody>
-        <p>{message}</p>
+        <p>{notificationMessage}</p>
       </ItemBody>
       <ItemFooter>
         <span>
           <Tag
             type={
-              target == "all"
+              notificationTarget == "all"
                 ? "blue"
-                : target == "student"
+                : notificationTarget == "student"
                 ? "green"
                 : "yellow"
             }
           >
-            {target}
+            {notificationTarget}
           </Tag>
         </span>
         <span>{genDate(createdAt)}</span>

@@ -1,7 +1,9 @@
+import LoadingPage from "../../ui/LoadindPage";
 import Menus from "../../ui/Menus";
 import Pagination from "../../ui/Pagination";
 import Table from "../../ui/Table";
 import FeedbackTableRow from "./FeedbackTableRow";
+import { useGetFeedbacks } from "./useGetFeedbacks";
 
 const feedback = {
   from: "Solomon Aboagye",
@@ -14,30 +16,29 @@ const feedback = {
   userType: "student",
 };
 
-function FeedbackTable ()
-{
-  
-  const feedbacks = Array.from({ length: 10 }, (_, i) => ({
-    ...feedback,
-    id: i,
-  }));
+function FeedbackTable() {
+  const { feedbacks = [], isLoadingFeedbacks } = useGetFeedbacks();
+
   return (
-    <Menus>
-      <Table columns="2fr 1fr 1fr 1fr 1fr">
-        <Table.Header>
-          <div>From</div>
-          <div>Rating</div>
-          <div>Status</div>
-          <div>Created At</div>
-          <div></div>
-        </Table.Header>
-        <Table.Body
-          data={feedbacks}
-          render={(data) => <FeedbackTableRow data={data} />}
-        />
-        <Pagination count={100} />
-      </Table>
-    </Menus>
+    <>
+      {isLoadingFeedbacks && <LoadingPage />}
+      <Menus>
+        <Table columns="2fr 1fr 1fr 1fr 1fr">
+          <Table.Header>
+            <div>From</div>
+            <div>Rating</div>
+            <div>Status</div>
+            <div>Created At</div>
+            <div></div>
+          </Table.Header>
+          <Table.Body
+            data={feedbacks}
+            render={(data) => <FeedbackTableRow data={data} />}
+          />
+          <Pagination count={feedback?.length ?? 0} />
+        </Table>
+      </Menus>
+    </>
   );
 }
 

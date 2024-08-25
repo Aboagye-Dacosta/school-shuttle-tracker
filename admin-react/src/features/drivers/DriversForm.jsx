@@ -1,12 +1,19 @@
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
 
+import { useDriverCont } from "../../context/DriversFormContext";
 import Button from "../../ui/Button";
+import ControlledSelect from "../../ui/ControlledSelect";
 import FileInput from "../../ui/FileInput";
 import FormRow from "../../ui/FormRow";
 import FormRowVertical from "../../ui/FormRowVertical";
 import Heading from "../../ui/Heading";
 import Input from "../../ui/Input";
+import Select from "../../ui/Select";
+import SpinnerMini from "../../ui/SpinnerMini";
+import { useBuses } from "../buses/useBuses";
+import { useCreateDriver } from "./useCreateDriver";
+import { useUpdateDriver } from "./useUpdateDriver";
 
 const StyledDriversForm = styled.div`
   background-color: var(--color-grey-0);
@@ -24,25 +31,57 @@ const StyledHeading = styled(Heading)`
   box-shadow: var(--shadow-sm);
   padding: 2rem 3rem;
 `;
+const StyledSelect = styled(Select)`
+  width: 100%;
+`;
 
 function DriversForm() {
+  const { createDriver, isCreatingDriver } = useCreateDriver();
+  const { updateDriver, isUpdatingDriver } = useUpdateDriver();
+  const { driver, hasDriver, setDriver, setHasDriver } = useDriverCont();
+
+  const { buses, isLoadingBuses } = useBuses();
   const {
     handleSubmit,
     register,
     reset,
+    control,
     formState: { errors },
-  } = useForm();
+  } = useForm({ values:driver });
+
   const handleFormSubmit = (value) => {
-    console.log(value);
+    if (Object.keys(driver).length && hasDriver) {
+      updateDriver(value, {
+        onSettled() {
+          reset();
+        },
+      });
+    } else {
+      createDriver(
+        {
+          ...value,
+          driverImage: value["driverImage"]?.length
+            ? value["driverImage"][0]
+            : "",
+        },
+        {
+          onSettled() {
+            setDriver({});
+          },
+        }
+      );
+    }
   };
+
   return (
     <StyledDriversForm>
       <StyledHeading as="h3">Drivers Form</StyledHeading>
       <StyledForm onSubmit={handleSubmit(handleFormSubmit)}>
         <FormRowVertical label="Driver's Name" error={errors?.name?.message}>
           <Input
+            disabled={isCreatingDriver || isUpdatingDriver}
             id="driver-name"
-            {...register("name", {
+            {...register("driverName", {
               required: {
                 message: "Drivers name is required",
                 value: true,
@@ -52,9 +91,10 @@ function DriversForm() {
         </FormRowVertical>
         <FormRowVertical label="Driver's Email" error={errors?.email?.message}>
           <Input
+            disabled={isCreatingDriver || isUpdatingDriver}
             id="driver-email"
             type="email"
-            {...register("email", {
+            {...register("driverEmail", {
               required: {
                 message: "Drivers email is required",
                 value: true,
@@ -67,9 +107,10 @@ function DriversForm() {
           error={errors?.password?.message}
         >
           <Input
+            disabled={isCreatingDriver || isUpdatingDriver}
             id="driver-password"
             type="password"
-            {...register("password", {
+            {...register("driverPassword", {
               required: {
                 message: "Drivers password is required",
                 value: true,
@@ -77,13 +118,23 @@ function DriversForm() {
             })}
           />
         </FormRowVertical>
+
         <FormRowVertical label="Drivers Image">
-          <FileInput id="driver-image" />
+          <FileInput
+            id="driver-image"
+            {...register("driverImage")}
+            disabled={isCreatingDriver || isUpdatingDriver}
+          />
         </FormRowVertical>
-        <FormRowVertical label="Drivers Tel" error={errors?.phone?.message}>
+
+        <FormRowVertical
+          label="Drivers Phone Number"
+          error={errors?.phone?.message}
+        >
           <Input
             id="driver-tel"
-            {...register("phone", {
+            disabled={isCreatingDriver || isUpdatingDriver}
+            {...register("driverPhone", {
               required: {
                 message: "Drivers phone is required",
                 value: true,
@@ -96,8 +147,9 @@ function DriversForm() {
           error={errors?.address?.message}
         >
           <Input
+            disabled={isCreatingDriver || isUpdatingDriver}
             id="driver-address"
-            {...register("address", {
+            {...register("driverAddress", {
               required: {
                 message: "Drivers address is required",
                 value: true,
@@ -106,11 +158,56 @@ function DriversForm() {
           />
         </FormRowVertical>
         {/* <Row type="horizontal"> */}
+        <FormRowVertical
+          label="Select Bus Number"
+          error={errors?.status?.message}
+        >
+          <ControlledSelect
+            name="busNumber"
+            message={"Status is required"}
+            control={control}
+          >
+            <StyledSelect
+              options={
+                !isLoadingBuses
+                  ? buses.map((bus) => ({
+                      value: bus?.busNumber,
+                      label: bus?.busNumber,
+                    }))
+                  : { value: "loading", label: "loading" }
+              }
+            />
+          </ControlledSelect>
+        </FormRowVertical>
         <FormRow>
-          <Button variation="secondary" type="reset" onClick={reset}>
+          <Button
+            variation="secondary"
+            type="reset"
+            disabled={isCreatingDriver || isUpdatingDriver}
+            onClick={() => {
+              setHasDriver(false);
+              setDriver(null);
+              reset(
+                {
+                  driverName: undefined,
+                  driverImage: undefined,
+                  driverEmail: undefined,
+                  driverPassword: undefined,
+                  busNumber: undefined,
+                  driverAddress: undefined,
+                  driverPhone: undefined,
+                },
+              );
+            }}
+          >
             Reset
           </Button>
-          <Button>Save</Button>
+          <Button
+            disabled={isCreatingDriver || isUpdatingDriver}
+            type={"submit"}
+          >
+            {(isCreatingDriver || isUpdatingDriver) && <SpinnerMini />} Save
+          </Button>
         </FormRow>
         {/* </Row> */}
       </StyledForm>

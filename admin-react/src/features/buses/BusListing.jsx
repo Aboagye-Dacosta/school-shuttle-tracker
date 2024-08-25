@@ -21,7 +21,7 @@ function BusListing() {
         <Modal>
           <Row type="horizontal">
             <Modal.Open opens="create-bus">
-              <Button>Add a driver</Button>
+              <Button>Add a Bus</Button>
             </Modal.Open>
 
             <Modal.Window name={`create-bus`}>

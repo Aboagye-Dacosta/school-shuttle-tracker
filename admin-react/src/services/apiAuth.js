@@ -1,28 +1,32 @@
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { apiGetUserByEmail } from "../helpers/users/apiGetUser";
+import { auth } from "./firebase";
 
-export async function login({ email, password }) {
- 
-}
-export async function loadRoles() {
- 
-}
-export async function loadRoutes() {
- 
+export async function login({ email:mail, password }) {
+  try {
+    const userCredentials = await signInWithEmailAndPassword(
+      auth,
+      mail,
+      password
+    );
+      const authUser = userCredentials.user;
+      const {
+          email
+      } = authUser;
+      
+
+      if (email == mail)
+      {
+          const user = await apiGetUserByEmail(email) 
+          return user;
+      }
+    return authUser;
+  } catch (error) {
+    return error;
+  }
 }
 
-export async function getUser() {
- 
-}
-export async function getUsers() {
-  
-}
-
-export async function logout() {
- 
-}
-export async function signup({ email, password, fullName, role }) {
- 
-}
-
-export async function updateUser({ fullName, password, avatar, role }) {
-  
+export async function logout ()
+{
+    
 }

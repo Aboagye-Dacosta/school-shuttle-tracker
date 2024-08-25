@@ -7,18 +7,22 @@ import { genDate } from "../../helpers/utils";
 import FeedbackTableActions from "./FeedbackTableActions";
 
 function FeedbackTableRow({ data }) {
-  const { id, status, rating, from, createdAt } = data;
+  const { id, feedbackStatus, feedbackRating, feedbackTarget, createdAt } = data;
   return (
     <Table.Row id={id}>
-      <div>{from}</div>
-      <div>{rating}</div>
+      <div>{feedbackTarget}</div>
+      <div>{feedbackRating}</div>
       <div>
         <Tag
           type={
-            status == "pending" ? "blue" : status == "read" ? "green" : "yellow"
+            feedbackStatus == "pending"
+              ? "blue"
+              : feedbackStatus == "read"
+              ? "green"
+              : "yellow"
           }
         >
-          {status}
+          {feedbackStatus}
         </Tag>
       </div>
       <div>{genDate(createdAt)}</div>

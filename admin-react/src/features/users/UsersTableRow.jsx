@@ -6,18 +6,25 @@ import Tag from "../../ui/Tag";
 
 import UsersTableActions from "./UsersTableActions";
 
-function UsersTableRow({ data: { id, image, username, email, reference ,status} }) {
+function UsersTableRow({
+  data = {}
+})
+{
+  
+  const { id, userImage, userName, userEmail, userReference, userStatus } = data;
   return (
     <Table.Row id={id}>
       <div>
-        <TableImg src={image} />
+        <TableImg src={userImage} />
       </div>
-      <div>{username}</div>
-      <div>{email}</div>
-      <div><Tag type={status =="blocked" ? "grey" : "green"}>{ status}</Tag></div>
-      <div>{reference ?? <span>&mdash; &mdash;</span>}</div>
+      <div>{userName}</div>
+      <div>{userEmail}</div>
       <div>
-        <UsersTableActions id={id} status={status} />
+        <Tag type={userStatus == "blocked" ? "grey" : "green"}>{status}</Tag>
+      </div>
+      <div>{userReference ?? <span>&mdash; &mdash;</span>}</div>
+      <div>
+        <UsersTableActions id={id} status={userStatus} />
       </div>
     </Table.Row>
   );

@@ -8,6 +8,7 @@ import Managers from "./pages/Managers";
 import PageNotFound from "./pages/PageNotFound";
 import Users from "./pages/Users";
 
+import { AuthenticationProvider } from "./context/AuthProvider";
 import Account from "./pages/Account";
 import FeedbackPage from "./pages/FeedbackPage";
 import MapPage from "./pages/MapPage";
@@ -19,7 +20,12 @@ function Router() {
   return (
     <div>
       <Routes>
-        <Route path="/" element={<AppLayout />}>
+        <Route
+          path="/"
+          element={
+              <AppLayout />
+          }
+        >
           {/* <Route index element={<Navigate to="/dashboard" />} />
           <Route path="dashboard" element={<Dashboard />} /> */}
           <Route index element={<Buses />} />

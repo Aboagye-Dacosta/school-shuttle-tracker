@@ -29,26 +29,26 @@ const StyledNotificationDetail = styled.div`
 `;
 
 export default function NotificationDetail({
-  notification: { title, message, target, createdAt },
+  notification: { notificationTitle, notificationMessage, notificationTarget, createdAt },
 }) {
   return (
     <>
       <Heading as="h2">Notification</Heading>
       <StyledNotificationDetail>
-        <Heading as="h3">{title}</Heading>
-        <p>{message}</p>
+        <Heading as="h3">{notificationTitle}</Heading>
+        <p>{notificationMessage}</p>
         <div>
           <span>
             <Tag
               type={
-                target == "driver"
+                notificationTarget == "driver"
                   ? "blue"
-                  : target == "student"
+                  : notificationTarget == "student"
                   ? "yellow"
                   : "green"
               }
             >
-              {target}
+              {notificationTarget}
             </Tag>
           </span>
           <span>{genDate(createdAt)}</span>

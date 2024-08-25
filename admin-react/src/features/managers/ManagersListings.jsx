@@ -1,11 +1,12 @@
 import styled from "styled-components";
 
-import { managersData } from "../../assets/data";
 import ManagersListingItem from "./ManagersListingItem";
 
 import Heading from "../../ui/Heading";
 import { SearchFilterProvider } from "../../ui/SearchFilter";
+import Spinner from "../../ui/Spinner";
 import ManagersFilterAction from "./ManagersFilterAction";
+import { useManagers } from "./useManagers";
 
 const StyledManagersListings = styled.div`
   background-color: var(--color-grey-0);
@@ -37,24 +38,21 @@ const StyledHeading = styled(Heading)`
   width: 100%;
 `;
 
-function genRand(max, min) {
-  return Math.floor(Math.random() * (max - min)) + min;
-}
-
 function ManagersListings() {
+  const { managers = [], isLoadingManagers } = useManagers();
   return (
     <SearchFilterProvider>
       <StyledManagersListings>
         <StyledHeading as="h3">Managers Listing</StyledHeading>
         <ManagersFilterAction />
         <StyledBody>
-          {Array.from({ length: 50 }, (_, i) => ({
-            ...managersData[0],
-            id: i,
-            role: genRand(2, 0) ? "admin" : "user",
-          })).map((data) => (
-            <ManagersListingItem key={data.id} data={data} />
-          ))}
+          {isLoadingManagers ? (
+            <Spinner />
+          ) : (
+            managers.map((data) => (
+              <ManagersListingItem key={data.id} data={data} />
+            ))
+          )}
         </StyledBody>
       </StyledManagersListings>
     </SearchFilterProvider>

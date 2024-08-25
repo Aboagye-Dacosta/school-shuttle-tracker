@@ -2,12 +2,14 @@ import { useState } from "react";
 import { toast } from "react-hot-toast";
 import styled from "styled-components";
 
+import { useAuth } from "../../context/AuthProvider";
 import Button from "../../ui/Button";
 import Form from "../../ui/Form";
 import FormRowVertical from "../../ui/FormRowVertical";
 import Input from "../../ui/Input";
-import SpinnerSm from "../../ui/SpinnerSm";
+import SpinnerMini from "../../ui/SpinnerMini";
 import { useAuthLogin } from "./useAuthLogin";
+import { useNavigate } from "react-router-dom";
 
 const StyledForm = styled(Form)`
   background-color: var(--color-grey-0);
@@ -20,18 +22,40 @@ const StyledForm = styled(Form)`
   margin: 0 auto;
 `;
 
-function LoginForm() {
+function LoginForm ()
+{
+  const navigate = useNavigate("/");
   const { isLoggingInUser, login } = useAuthLogin();
+  const { setAuthenticated, setUserRole,setUser } = useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  function handleSubmit (e)
-  {
-    e.preventDefault()
+  function handleSubmit(e) {
+    e.preventDefault();
+
+    console.log(email, password);
+
     if (!email || !password)
       return toast.error("email and password are required");
-    login({ email, password });
+    login(
+      { email, password },
+      {
+        onSuccess: (data) =>
+        {
+          console.log(data);
+          if (data) {
+            const { role } = data;
+            if (["manager", "admin"].includes(role)) {
+              setAuthenticated(true);
+              setUserRole(role);
+              setUser(data);
+              navigate("/")
+            }
+          }
+        },
+      }
+    );
   }
 
   return (
@@ -61,7 +85,7 @@ function LoginForm() {
         <Button size="medium" disabled={isLoggingInUser} onClick={handleSubmit}>
           {isLoggingInUser ? (
             <>
-              <SpinnerSm />
+              <SpinnerMini />
               Logging in
             </>
           ) : (

@@ -8,8 +8,15 @@ import ButtonGroup from "../../ui/ButtonGroup";
 import ConfirmDelete from "../../ui/ConfirmDelete";
 import Modal from "../../ui/Modal";
 import CreateBusForm from "./CreateBusForm";
+import { useBus } from "./useBus";
+import { useDeleteBus } from "./useDeleteBus";
 
 function BusRowActions({ id }) {
+  const { deleteBus, isDeletingBus } = useDeleteBus(id);
+  const { bus } = useBus(id);
+  console.log(bus);
+
+  console.log(id);
   return (
     <Modal>
       <ButtonGroup>
@@ -34,11 +41,17 @@ function BusRowActions({ id }) {
       </ButtonGroup>
 
       <Modal.Window name={`delete-${id}`}>
-        <ConfirmDelete resourceName="Notification" onConfirm={() => {}} />
+        <ConfirmDelete
+          resourceName="Bus"
+          disabled={isDeletingBus}
+          onConfirm={() => {
+            deleteBus();
+          }}
+        />
       </Modal.Window>
 
       <Modal.Window name={`edit-${id}`}>
-        <CreateBusForm />
+        <CreateBusForm bus={bus} />
       </Modal.Window>
     </Modal>
   );

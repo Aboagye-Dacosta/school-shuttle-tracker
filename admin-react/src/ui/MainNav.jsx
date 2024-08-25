@@ -6,7 +6,7 @@ import { TfiWheelchair } from "react-icons/tfi";
 import { VscAccount, VscFeedback } from "react-icons/vsc";
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
-import { useAuth } from "../context/AuthContext";
+import { useAuth } from "../context/AuthProvider";
 
 const NavList = styled.ul`
   display: flex;

@@ -1,8 +1,10 @@
+import { forwardRef, useImperativeHandle, useRef } from "react";
 import styled from "styled-components";
 import Button from "./Button";
 import Heading from "./Heading";
+import SpinnerMini from "./SpinnerMini";
 
-const StyledConfirmBlock = styled.div`
+const StyledConfirmBlocked= styled.div`
   width: 40rem;
   display: flex;
   flex-direction: column;
@@ -20,24 +22,33 @@ const StyledConfirmBlock = styled.div`
   }
 `;
 
-function ConfirmBlock({ resourceName, onConfirm, disabled, closeModal }) {
-  return (
-    <StyledConfirmBlock>
-      <Heading as="h3">Block {resourceName}</Heading>
-      <p>
-        Are you sure you want to block this {resourceName}.
-      </p>
+const ConfirmBlocked = forwardRef(
+  ({ resourceName, onConfirm, disabled, closeModal, state }, ref) => {
+    const defRef = useRef();
+    useImperativeHandle(ref, () => ({
+      closeModal,
+    }));
+    return (
+      <StyledConfirmBlocked ref={defRef}>
+        <Heading as="h3">Blocked {resourceName}</Heading>
+        <p>Are you sure you want to Blocked this {resourceName}.</p>
 
-      <div>
-        <Button variation="secondary" disabled={disabled} onClick={closeModal}>
-          Cancel
-        </Button>
-        <Button variation="danger" disabled={disabled} onClick={onConfirm}>
-          Block
-        </Button>
-      </div>
-    </StyledConfirmBlock>
-  );
-}
+        <div>
+          <Button
+            variation="secondary"
+            disabled={disabled}
+            onClick={closeModal}
+          >
+            Cancel
+          </Button>
+          <Button disabled={disabled} onClick={onConfirm}>
+            {state && <SpinnerMini />} Block
+          </Button>
+        </div>
+      </StyledConfirmBlocked>
+    );
+  }
+);
 
-export default ConfirmBlock;
+ConfirmBlocked.displayName = "ConfirmBlocked";
+export default ConfirmBlocked;

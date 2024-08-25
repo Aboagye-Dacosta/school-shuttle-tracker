@@ -4,13 +4,13 @@ import HeaderMenu from "./HeaderMenu";
 import { HiOutlineHome, HiOutlineHomeModern, HiOutlineUsers } from "react-icons/hi2";
 import { IoBusOutline } from "react-icons/io5";
 import { useLocation } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
 
 import Tag from "./Tag"
 import { TfiWheelchair } from "react-icons/tfi";
 import { RiUserSettingsLine } from "react-icons/ri";
 import { IoMdNotificationsOutline } from "react-icons/io";
 import { VscAccount, VscFeedback } from "react-icons/vsc";
+import { useAuth } from "../context/AuthProvider";
 
 const StyledHeader = styled.header`
   background-color: var(--color-grey-0);

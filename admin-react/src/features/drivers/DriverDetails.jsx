@@ -10,10 +10,11 @@ import Row from "../../ui/Row";
 
 import { useMoveBack } from "../../hooks/useMoveBack";
 
-import { Link } from "react-router-dom";
-import { driversData } from "../../assets/data";
+import { useRef } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import DriverDataBox from "./DriverDataBox";
 import DriversFormModal from "./DriversFormModal";
+import { useDeleteDriver } from "./useDeleteDriver";
 
 const HeadingGroup = styled.div`
   display: flex;
@@ -23,14 +24,16 @@ const HeadingGroup = styled.div`
 
 function DriverDetails() {
   const moveBack = useMoveBack();
-
-  const { id: driverId } = driversData[0];
+  const ref = useRef();
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const { deleteDriver, isDeletingDriver } = useDeleteDriver(id);
 
   return (
     <>
       <Row type="horizontal">
         <HeadingGroup>
-          <Heading as="h1">Driver #{driverId}</Heading>
+          <Heading as="h1">Driver #{id}</Heading>
         </HeadingGroup>
         <ButtonText onClick={moveBack}>&larr; Back</ButtonText>
       </Row>
@@ -48,7 +51,20 @@ function DriverDetails() {
           <Modal.Window name="delete-driver">
             <ConfirmDelete
               resourceName="Driver"
-              onConfirm={() => {}}
+              state={isDeletingDriver}
+              ref={ref}
+              onConfirm={() => {
+                deleteDriver(id, {
+                  onSuccess: () => {
+                    navigate("/drivers");
+                  },
+                  onSettled: () => {
+                    if (ref?.current) {
+                      ref?.current?.closeModal();
+                    }
+                  },
+                });
+              }}
               // disabled={isDeletingBooking}
             />
           </Modal.Window>
@@ -64,7 +80,7 @@ function DriverDetails() {
         </Modal>
 
         <Row type="horizontal">
-          <Button as={Link} to={`/drivers/${driverId}/map`}>
+          <Button as={Link} to={`/drivers/${id}/map`}>
             Track in real time
           </Button>
         </Row>

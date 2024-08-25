@@ -8,7 +8,9 @@ import FormRowVertical from "../../ui/FormRowVertical";
 import Heading from "../../ui/Heading";
 import Input from "../../ui/Input";
 import Select from "../../ui/Select";
+import SpinnerMini from "../../ui/SpinnerMini";
 import Textarea from "../../ui/Textarea";
+import { useCreateNotification } from "./useCreateNotification";
 
 const StyledNotificationsForm = styled.div`
   padding: 0 2rem;
@@ -27,17 +29,31 @@ const StyledSelect = styled(Select)`
 `;
 
 export default function NotificationsForm() {
+  const { createNotification, isCreatingNotification } =
+    useCreateNotification();
   const {
     register,
     handleSubmit,
+    reset,
     control,
     formState: { errors },
   } = useForm();
 
   const handleFormSubmit = (value) => {
-    console.log(value);
+    createNotification(
+      {
+        ...value,
+        notificationTarget: value["notificationTarget"]["value"],
+        createdAt: new Date(Date.now()).toISOString(),
+      },
+      {
+        onSettled() {
+          reset();
+        },
+      }
+    );
   };
-  
+
   return (
     <StyledNotificationsForm>
       <form onSubmit={handleSubmit(handleFormSubmit)} method="Post">
@@ -47,7 +63,8 @@ export default function NotificationsForm() {
           error={errors?.title?.message}
         >
           <Input
-            {...register("title", {
+            disabled={isCreatingNotification}
+            {...register("notificationTitle", {
               required: {
                 message: "Notification title is required",
                 value: true,
@@ -60,7 +77,8 @@ export default function NotificationsForm() {
           error={errors?.message?.message}
         >
           <Textarea
-            {...register("message", {
+            disabled={isCreatingNotification}
+            {...register("notificationMessage", {
               required: {
                 message: "Notification message is required",
                 value: true,
@@ -75,9 +93,10 @@ export default function NotificationsForm() {
           <ControlledSelect
             control={control}
             message={"Notification targe is required"}
-            name={"target"}
+            name={"notificationTarget"}
           >
             <StyledSelect
+              disabled={isCreatingNotification}
               options={[
                 { label: "Students", value: "students" },
                 { label: "Drivers", value: "drivers" },
@@ -90,7 +109,9 @@ export default function NotificationsForm() {
           <Button variation="secondary" type="reset">
             Reset
           </Button>
-          <Button>Create Notification</Button>
+          <Button>
+            Create Notification {isCreatingNotification && <SpinnerMini />}
+          </Button>
         </FormRow>
       </form>
     </StyledNotificationsForm>

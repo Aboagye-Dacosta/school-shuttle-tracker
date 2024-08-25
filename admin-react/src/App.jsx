@@ -4,6 +4,7 @@ import Router from "./Router";
 import { DarkModeProvider } from "./context/DarkModeContext";
 import Login from "./pages/Login";
 import NotAuthorized from "./ui/NotAuthorized";
+import CustomToaster from "./ui/CustomToaster"
 
 const client = new QueryClient();
 
@@ -18,6 +19,7 @@ function App() {
             <Route path="/not-authorized" element={<NotAuthorized />} />
           </Routes>
         </BrowserRouter>
+        <CustomToaster />
       </DarkModeProvider>
     </QueryClientProvider>
   );

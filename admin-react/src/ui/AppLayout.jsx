@@ -1,7 +1,7 @@
 import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 
-import { AuthenticationProvider, AuthProvider } from "../context/AuthContext";
+import { AuthenticationProvider } from "../context/AuthProvider";
 import Header from "./Header";
 import SideBar from "./SideBar";
 
@@ -9,6 +9,7 @@ const Main = styled.main`
   background-color: var(--color-grey-50);
   overflow: auto;
   padding: 4rem 4.8rem 6.4rem;
+  position: relative;
 `;
 
 const StyledAppLayout = styled.div`
@@ -26,19 +27,17 @@ const Container = styled.div`
 `;
 function AppLayout() {
   return (
-    <AuthProvider>
-      <AuthenticationProvider>
-        <StyledAppLayout>
-          <Header />
-          <SideBar />
-          <Main>
-            <Container>
-              <Outlet />
-            </Container>
-          </Main>
-        </StyledAppLayout>
-      </AuthenticationProvider>
-    </AuthProvider>
+    <AuthenticationProvider>
+      <StyledAppLayout>
+        <Header />
+        <SideBar />
+        <Main>
+          <Container>
+            <Outlet />
+          </Container>
+        </Main>
+      </StyledAppLayout>
+    </AuthenticationProvider>
   );
 }
 

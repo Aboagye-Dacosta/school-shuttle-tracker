@@ -5,8 +5,10 @@ import ButtonIcon from "../../ui/ButtonIcon";
 import Heading from "../../ui/Heading";
 import Tag from "../../ui/Tag";
 
-import UserLog from "./UserLog";
 import { useUser } from "../../context/UsersContext";
+import Spinner from "../../ui/Spinner";
+import UserLog from "./UserLog";
+import { useUserLogs } from "./useUserLogs";
 
 const StyledUserLogs = styled.div`
   width: 30rem;
@@ -31,14 +33,15 @@ const StyledLogBody = styled.div`
   gap: 1rem;
 `;
 
-function UserLogs ()
-{
-  const {closeLog,userId} = useUser()
+function UserLogs() {
+  const { closeLog, userId } = useUser();
+  const { userLogs = [], isLoadingUserLogs } = useUserLogs(userId);
+
   return (
     <StyledUserLogs>
       <StyledHeading as="h3">
         <span>
-          User <Tag type="red">#{userId}</Tag> Logs
+          User Logs <Tag type="red">#{userId}</Tag>
         </span>
         <ButtonIcon onClick={closeLog}>
           <AiOutlineClose />
@@ -46,15 +49,13 @@ function UserLogs ()
       </StyledHeading>
 
       <StyledLogBody>
-        <UserLog
-          data={{ busNumber: "329829", created_at: new Date().toISOString() }}
-        />
-        <UserLog
-          data={{ busNumber: "329829", created_at: new Date().toISOString() }}
-        />
-        <UserLog
-          data={{ busNumber: "329829", created_at: new Date().toISOString() }}
-        />
+        {!isLoadingUserLogs && !userLogs?.length && <p>user has no logs</p>}
+        {isLoadingUserLogs && <Spinner />}
+        {!isLoadingUserLogs && userLogs?.length && (
+          <UserLog
+            data={{ busNumber: "329829", created_at: new Date().toISOString() }}
+          />
+        )}
       </StyledLogBody>
     </StyledUserLogs>
   );

@@ -2,7 +2,9 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { genDate } from "../../helpers/utils";
 import Heading from "../../ui/Heading";
+import SpinnerMini from "../../ui/SpinnerMini";
 import Tag from "../../ui/Tag";
+import { useUpdateFeedback } from "./useUpdateFeedback";
 
 const StyledFeedbackDetail = styled.div`
   display: flex;
@@ -28,31 +30,40 @@ const StyledFeedbackDetail = styled.div`
   }
 `;
 
-export default function FeedbackDetail({
-  feedback: { title, message, from, userType, createdAt, rating, status },
-}) {
-  const handleChange = (value) => {
-    console.log(value);
+export default function FeedbackDetail({ feedback = {} }) {
+  const {
+    feedbackTitle,
+    feedbackMessage,
+    feedbackTarget,
+    createdAt,
+    feedbackRating,
+    feedbackStatus,
+  } = feedback;
+
+  const { updateFeedback, isUpdatingFeedback } = useUpdateFeedback();
+
+  
+  const handleChange = (value) =>
+  {
+    updateFeedback({ ...feedback, feedbackStatus: value });
   };
 
   return (
     <>
       <Heading as="h2">Feedback</Heading>
       <StyledFeedbackDetail>
-        <Heading as="h3">{title}</Heading>
-        <p>{message}</p>
-        <div>
-          <Tag type="green">From</Tag>
-          <span>{from}</span>
-        </div>
+        <Heading as="h3">{feedbackTitle}</Heading>
+        <p>{feedbackMessage}</p>
         <div>
           <Tag type="green">Status</Tag>
           <div>
+            {isUpdatingFeedback && <SpinnerMini />}
             <label>
               <input
                 type="radio"
                 name="status"
-                checked={status === "pending"}
+                disabled={isUpdatingFeedback}
+                defaultChecked={feedbackStatus === "pending"}
                 onChange={() => handleChange("pending")}
               />
               <span>Pending</span>
@@ -61,7 +72,8 @@ export default function FeedbackDetail({
               <input
                 type="radio"
                 name="status"
-                checked={status === "read"}
+                disabled={isUpdatingFeedback}
+                defaultChecked={feedbackStatus === "read"}
                 onChange={() => handleChange("read")}
               />
               <span>Read</span>
@@ -70,7 +82,8 @@ export default function FeedbackDetail({
               <input
                 type="radio"
                 name="status"
-                checked={status === "hold"}
+                disabled={isUpdatingFeedback}
+                defaultChecked={feedbackStatus === "hold"}
                 onChange={() => handleChange("hold")}
               />
               <span>Hod</span>
@@ -79,10 +92,10 @@ export default function FeedbackDetail({
         </div>
         <div>
           <span>
-            <Tag type={userType == "driver" ? "blue" : "yellow"}>
-              {userType}
+            <Tag type={feedbackTarget == "driver" ? "blue" : "yellow"}>
+              {feedbackTarget}
             </Tag>
-            <Tag type="red">{rating}</Tag>
+            <Tag type="red">{feedbackRating}</Tag>
           </span>
           <span>{genDate(createdAt)}</span>
         </div>

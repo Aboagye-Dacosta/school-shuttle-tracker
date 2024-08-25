@@ -1,29 +1,30 @@
 import PropTypes from "prop-types";
-import { Fragment } from "react";
 import Table from "../../ui/Table";
 import TableImg from "../../ui/TableImg";
 import Tag from "../../ui/Tag";
 import BusRowActions from "./BusRowActions";
 
 function BusTableRow({
-  data: { id, image = "", busNumber = "", destinations = [], status },
+  data: {
+    id,
+    busImage = "",
+    busNumber = "",
+    destinationOne,
+    destinationTwo,
+    busStatus,
+  },
 }) {
   return (
     <Table.Row>
       <div role="row">
-        <TableImg src={image} />
+        <TableImg src={busImage} />
       </div>
       <div role="row">{busNumber}</div>
-      <div role="row">{status}</div>
+      <div role="row">{busStatus}</div>
       <div role="row">
-        {destinations.map((destination, index) => (
-          <Fragment key={destination}>
-            <Tag type="grey" key={destination}>
-              {destination}
-            </Tag>
-            {index !== destinations.length - 1 && <span>&mdash;</span>}
-          </Fragment>
-        ))}
+        <Tag type="grey">{destinationOne.destination}</Tag>
+        <span>&mdash;</span>
+        <Tag type="grey">{destinationTwo.destination}</Tag>
       </div>
       <div>
         <BusRowActions id={id} />

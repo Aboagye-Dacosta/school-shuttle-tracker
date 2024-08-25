@@ -5,15 +5,19 @@ import { MdBlock } from "react-icons/md";
 import { VscActivateBreakpoints } from "react-icons/vsc";
 import styled from "styled-components";
 
+import { useRef } from "react";
 import { useUser } from "../../context/UsersContext";
 import Button from "../../ui/Button";
 import ButtonGroup from "../../ui/ButtonGroup";
 import ButtonIcon from "../../ui/ButtonIcon";
 import ConfirmActivate from "../../ui/ConfirmActivate";
-import ConfirmBlock from "../../ui/ConfirmBlock";
+import ConfirmBlocked from "../../ui/ConfirmBlock";
 import ConfirmDelete from "../../ui/ConfirmDelete";
 import Menus from "../../ui/Menus";
 import Modal from "../../ui/Modal";
+import { useDeleteUser } from "./useDeleteUser";
+import { useUpdateUser } from "./useUpdateUser";
+import { useGetUser } from "./useUser";
 
 const StyledDeleteIcon = styled(FaTrash)`
   color: var(--color-red-800) !important;
@@ -26,13 +30,19 @@ const StyledActivateIcon = styled(VscActivateBreakpoints)`
 `;
 
 function UsersTableActions({ id, status }) {
+  const ref = useRef({ current: null });
   const { openLog, setUserId } = useUser();
+  const { updateUser = {}, isUpdatingUser } = useUpdateUser();
+  const { deleteUser, isDeletingUser } = useDeleteUser();
+  const { user } = useGetUser(id);
+
+  console.log(user);
+
   return (
     <ButtonGroup>
       <Button
         size="small"
         onClick={() => {
-          console.log(id);
           setUserId(id);
           openLog();
         }}
@@ -65,13 +75,52 @@ function UsersTableActions({ id, status }) {
           </Modal.Open>
         </Menus.List>
         <Modal.Window name="delete-user">
-          <ConfirmDelete resourceName="User" onConfirm={() => {}} />
+          <ConfirmDelete
+            ref={ref}
+            state={isDeletingUser}
+            resourceName="User"
+            onConfirm={() => {
+              deleteUser(id, {
+                onSettled() {
+                  ref?.current?.closeModal();
+                },
+              });
+            }}
+          />
         </Modal.Window>
         <Modal.Window name="block-user">
-          <ConfirmBlock resourceName="User" onConfirm={() => {}} />
+          <ConfirmBlocked
+            resourceName="User"
+            ref={ref}
+            state={isUpdatingUser}
+            onConfirm={() => {
+              updateUser(
+                { id, ...user, userStatus: "blocked" },
+                {
+                  onSettled() {
+                    ref?.current?.closeModal();
+                  },
+                }
+              );
+            }}
+          />
         </Modal.Window>
         <Modal.Window name="activate-user">
-          <ConfirmActivate resourceName="User" onConfirm={() => {}} />
+          <ConfirmActivate
+            ref={ref}
+            state={isUpdatingUser}
+            resourceName="User"
+            onConfirm={() => {
+              updateUser(
+                { id, ...user, userStatus: "active" },
+                {
+                  onSettled() {
+                    ref?.current?.closeModal();
+                  },
+                }
+              );
+            }}
+          />
         </Modal.Window>
       </Modal>
     </ButtonGroup>

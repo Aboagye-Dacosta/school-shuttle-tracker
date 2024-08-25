@@ -7,18 +7,14 @@ import ButtonGroup from "../../ui/ButtonGroup";
 import ConfirmDelete from "../../ui/ConfirmDelete";
 import Modal from "../../ui/Modal";
 import FeedbackDetail from "./FeedbackDetail";
+import { useDeleteFeedback } from "./useDeleteFeedback";
+import { useRef } from "react";
 
-// const StyledDeleteIcon = styled(FaTrash)`
-//   color: var(--color-red-800) !important;
-// `;
-// const StyledBlockIcon = styled(MdBlock)`
-//   color: var(--color-yellow-700) !important;
-// `;
-// const StyledActivateIcon = styled(VscActivateBreakpoints)`
-//   color: var(--color-green-700) !important;
-// `;
 
-function FeedbackTableActions({ id, feedback }) {
+function FeedbackTableActions ({ id, feedback })
+{
+  const ref = useRef();
+  const {deleteFeedback,isDeletingFeedback} = useDeleteFeedback()
   return (
     <Modal>
       <ButtonGroup>
@@ -39,7 +35,18 @@ function FeedbackTableActions({ id, feedback }) {
         <FeedbackDetail feedback={feedback} />
       </Modal.Window>
       <Modal.Window name={`delete-${id}`}>
-        <ConfirmDelete resourceName="Bus" onConfirm={() => {}} />
+        <ConfirmDelete
+        ref={ref}
+        state ={isDeletingFeedback}
+          resourceName="Bus" onConfirm={() =>
+          { 
+            deleteFeedback(id, {
+              onSettled ()
+              {
+                ref?.current?.closeModal();
+              }
+            })
+          }} />
       </Modal.Window>
     </Modal>
   );

@@ -5,6 +5,8 @@ import Heading from "../../ui/Heading";
 
 import { driversData } from "../../assets/data";
 import Table from "../../ui/Table";
+import { useParams } from "react-router-dom";
+import { useDriver } from "./useDriver";
 
 const Card = styled.div`
   background-color: var(--color-grey-0);
@@ -56,22 +58,23 @@ const StyledDriverDataBox = styled.div`
 `;
 
 function DriverDataBox() {
-  const {
-    image,
-    /* id: busId, */
-    name,
-    created_at,
-    email,
-    address,
-    tel,
-    busNumber,
-  } = driversData[0];
+   const { id } = useParams();
+   const { driver = {} } = useDriver(id);
+
+   const {
+     driverName,
+     driverImage,
+     driverEmail,
+     busNumber,
+     driverAddress,
+     driverPhone,
+   } = driver;
 
   return (
       <StyledDriverDataBox>
           
       <Image>
-        <img src={image} />
+        <img src={driverImage} />
       </Image>
       <Card>
         <Table columns="1fr 1fr" >
@@ -79,37 +82,37 @@ function DriverDataBox() {
             <Sub>
               <span>Driver&apos;s name</span>
             </Sub>
-            <Name>{name}</Name>
+            <Name>{driverName}</Name>
           </Table.Row>
           <Table.Row>
             <Sub>
               <span>Email</span>
             </Sub>
-            <text>{email}</text>
+            <text>{driverEmail}</text>
           </Table.Row>
           <Table.Row>
             <Sub>
               <span>Address</span>
             </Sub>
-            <text>{address}</text>
+            <text>{driverAddress}</text>
           </Table.Row>
           <Table.Row>
             <Sub>
               <span>Telephone</span>
             </Sub>
-            <text>{tel}</text>
+            <text>{driverPhone}</text>
           </Table.Row>
           <Table.Row>
             <Sub>
               <span>Bus Number</span>
             </Sub>
-            {busNumber}
+            {busNumber["value"]}
           </Table.Row>
           <Table.Row>
             <Sub>
               <span>created at</span>
             </Sub>
-            {format(new Date(created_at), "MMM dd yyyy")}
+            {format(new Date(Date.now()), "MMM dd yyyy")}
           </Table.Row>
         </Table>
       </Card>
