@@ -8,7 +8,6 @@ import Managers from "./pages/Managers";
 import PageNotFound from "./pages/PageNotFound";
 import Users from "./pages/Users";
 
-import { AuthenticationProvider } from "./context/AuthProvider";
 import Account from "./pages/Account";
 import FeedbackPage from "./pages/FeedbackPage";
 import MapPage from "./pages/MapPage";

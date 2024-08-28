@@ -50,26 +50,37 @@ function DriversForm() {
   } = useForm({ values: driver });
 
   const handleFormSubmit = (value) => {
-    if (Object.keys(driver).length && hasDriver) {
-      updateDriver(value, {
-        onSettled() {
-          reset();
-        },
-      });
-    } else {
-      createDriver(
-        {
-          ...value,
-          userImage: value["userImage"]?.length ? value["driverImage"][0] : "",
-          createdAt: new Date(Date.now()).toISOString(),
-        },
-        {
-          onSettled() {
-            setDriver({});
-          },
-        }
-      );
-    }
+    window.grecaptcha.ready(() => {
+      window.grecaptcha
+        .execute("6LfSFjEqAAAAAPRYjJju25R_uCm1i2QmpbaVQ4YE", {
+          action: "submit",
+        })
+        .then(() => {
+          // Pass the token to the handleSignIn function
+          if (Object.keys(driver).length && hasDriver) {
+            updateDriver(value, {
+              onSettled() {
+                reset();
+              },
+            });
+          } else {
+            createDriver(
+              {
+                ...value,
+                userImage: value["userImage"]?.length
+                  ? value["driverImage"][0]
+                  : "",
+                createdAt: new Date(Date.now()).toISOString(),
+              },
+              {
+                onSettled() {
+                  setDriver({});
+                },
+              }
+            );
+          }
+        });
+    });
   };
 
   return (
