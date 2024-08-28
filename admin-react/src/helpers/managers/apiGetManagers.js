@@ -9,7 +9,7 @@ import { db } from "../../services/firebase";
 export async function apiGetManagers ()
 {
        try {
-    const usersRef = ref(db, "busing/users");
+    const usersRef = ref(db, "users");
     let busQuery = query(usersRef);
    
 

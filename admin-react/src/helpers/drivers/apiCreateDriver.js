@@ -6,40 +6,42 @@ import { auth, db, storage } from "../../services/firebase";
 
 export async function apiCreateDriver(driverData) {
   const {
-    driverName,
-    driverImage,
-    driverEmail,
+    username,
+    userImage,
+    userEmail,
     driverPassword,
     busNumber,
     driverAddress,
     driverPhone,
+    createdAt
   } = driverData;
 
   try {
-    await createUserWithEmailAndPassword(auth, driverEmail, driverPassword).then(
+    await createUserWithEmailAndPassword(auth, userEmail, driverPassword).then(
       async () =>
       {
         console.log("got here")
-        let url = " ";
-        const docRef = push(ref(db, "busing/users"));
+        let url = "";
+        const docRef = push(ref(db, "users"));
 
-        if (driverImage) {
+        if (userImage) {
           const storageRef = strRef(
             storage,
-            `images/drivers/${uuidv4()}-${driverImage.name}`
+            `images/drivers/${uuidv4()}-${userImage.name}`
           );
-          const imgRes = await uploadBytes(storageRef, driverImage);
+          const imgRes = await uploadBytes(storageRef, userImage);
           url = await getDownloadURL(imgRes.ref);
         }
 
         await set(docRef, {
-          driverName,
-          driverImage: url,
-          driverEmail,
+          username,
+          userImage: url,
+          userEmail,
           busNumber,
           driverAddress,
           role: "driver",
           driverPhone,
+          createdAt
         });
 
         

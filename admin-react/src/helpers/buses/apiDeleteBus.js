@@ -3,7 +3,7 @@ import { db } from "../../services/firebase";
 
 export async function apiDeleteBus(busId) {
   try {
-    const docRef = ref(db, `busing/buses/${busId}`);
+    const docRef = ref(db, `buses/${busId}`);
     await remove(docRef);
 
     return "success";

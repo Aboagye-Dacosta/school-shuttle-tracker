@@ -6,7 +6,7 @@ export async function apiUpdateUser (user,userId)
     delete user["id"]
      try {
 
-    const userRef = ref(db, `busing/users/${userId}`);
+    const userRef = ref(db, `users/${userId}`);
     await set(userRef, user );
     
     return "success";

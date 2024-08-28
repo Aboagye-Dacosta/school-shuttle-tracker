@@ -5,7 +5,7 @@ import { db } from "../../services/firebase";
 export async function apiGetNotification (notificationId)
 {
      try {
-    const notificationRef = ref(db, `busing/notifications/${notificationId}`);
+    const notificationRef = ref(db, `notifications/${notificationId}`);
    const snapshot = await get(notificationRef);
 
     if (snapshot.exists()) {

@@ -7,7 +7,7 @@ export async function apiUpdateFeedback ( feedbackId,feedback )
     try
     {
         delete feedback["id"];
-    const userRef = ref(db, `busing/feedbacks/${feedbackId}`);
+    const userRef = ref(db, `feedbacks/${feedbackId}`);
     await set(userRef, feedback);
 
     return "success";

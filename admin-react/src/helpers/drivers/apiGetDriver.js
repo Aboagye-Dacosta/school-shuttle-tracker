@@ -3,7 +3,7 @@ import { db } from "../../services/firebase";
 
 export async function apiGetDriver(driverId) {
   try {
-    const driverRef = ref(db, `busing/users/${driverId}`);
+    const driverRef = ref(db, `users/${driverId}`);
    const snapshot = await get(driverRef);
 
     if (snapshot.exists()) {

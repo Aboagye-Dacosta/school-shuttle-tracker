@@ -10,9 +10,9 @@ export async function apiCreateBus({
   destinationOne,
   destinationTwo,
 }) {
-  const docRef = push(ref(db, "busing/buses"));
+  const docRef = push(ref(db, "buses"));
   try {
-    let url = "";
+    let url = " ";
 
     if (busImage) {
       const storageRef = strRef(storage, `images/buses/${uuidv4()}-${busImage.name}`);
@@ -28,6 +28,7 @@ export async function apiCreateBus({
       busStatus,
       destinationOne,
       destinationTwo,
+      createdAt: new Date(Date.now()).toISOString(),
     });
 
 

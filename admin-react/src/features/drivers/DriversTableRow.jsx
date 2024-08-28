@@ -4,15 +4,15 @@ import TableImg from "../../ui/TableImg";
 import DriversTableRowActions from "./DriversTableRowActions";
 
 function DriversTableRow({
-  data: { id, driverImage, driverName, driverEmail },
+  data: { id, userImage, username, userEmail },
 }) {
   return (
     <Table.Row>
       <div>
-        <TableImg src={driverImage} />
+        <TableImg src={userImage} />
       </div>
-      <div>{driverName}</div>
-      <div>{driverEmail}</div>
+      <div>{username}</div>
+      <div>{userEmail}</div>
       <div>
         <DriversTableRowActions id={id} />
       </div>

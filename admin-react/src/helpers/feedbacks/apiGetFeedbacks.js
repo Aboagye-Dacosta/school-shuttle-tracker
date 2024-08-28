@@ -9,7 +9,7 @@ import { db } from "../../services/firebase";
 export async function apiGetFeedbacks ()
 {
       try {
-    const feedbacksRef = ref(db, "busing/feedbacks");
+    const feedbacksRef = ref(db, "feedbacks");
     let busQuery = query(feedbacksRef);
    
 

@@ -3,7 +3,7 @@ import { db } from "../../services/firebase";
 
 export async function apiGetUser(userId) {
   try {
-    const busRef = ref(db, `busing/users/${userId}`);
+    const busRef = ref(db, `users/${userId}`);
     const snapshot = await get(busRef);
 
     if (snapshot.exists()) {
@@ -37,7 +37,7 @@ export async function apiGetUserByEmail(email) {
 
 
    try {
-    const usersRef = ref(db, "busing/users");
+    const usersRef = ref(db, "users");
     let busQuery = query(usersRef);
 
     const snapshot = await get(busQuery);

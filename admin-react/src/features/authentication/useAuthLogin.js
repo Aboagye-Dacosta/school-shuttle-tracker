@@ -8,10 +8,10 @@ export function useAuthLogin() {
 
   const { mutate: login, isPending: isLoggingInUser } = useMutation({
     mutationFn: (data) => loginApi(data),
-    onSuccess: (data) =>
+    onSuccess: (data = {}) =>
     {
-      const { managerEmail } = data;
-      if(managerEmail)
+      const { userEmail } = data;
+      if(userEmail)
         toast.success("You have successfully logged in ");
       else throw new Error("invalid user credentials");
       navigate("/");

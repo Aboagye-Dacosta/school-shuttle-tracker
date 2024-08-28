@@ -10,7 +10,7 @@ export async function apiGetUsers ()
 {
 
   try {
-    const usersRef = ref(db, "busing/users");
+    const usersRef = ref(db, "users");
     let busQuery = query(usersRef);
    
 

@@ -6,7 +6,7 @@ export async function apiDeleteFeedback (feedbackId)
     
  
   try {
-    const docRef = ref(db, `busing/feedbacks/${feedbackId}`);
+    const docRef = ref(db, `feedbacks/${feedbackId}`);
     await remove(docRef);
 
     return "success";

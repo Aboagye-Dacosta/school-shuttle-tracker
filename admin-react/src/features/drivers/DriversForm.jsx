@@ -47,7 +47,7 @@ function DriversForm() {
     reset,
     control,
     formState: { errors },
-  } = useForm({ values:driver });
+  } = useForm({ values: driver });
 
   const handleFormSubmit = (value) => {
     if (Object.keys(driver).length && hasDriver) {
@@ -60,9 +60,8 @@ function DriversForm() {
       createDriver(
         {
           ...value,
-          driverImage: value["driverImage"]?.length
-            ? value["driverImage"][0]
-            : "",
+          userImage: value["userImage"]?.length ? value["driverImage"][0] : "",
+          createdAt: new Date(Date.now()).toISOString(),
         },
         {
           onSettled() {
@@ -81,7 +80,7 @@ function DriversForm() {
           <Input
             disabled={isCreatingDriver || isUpdatingDriver}
             id="driver-name"
-            {...register("driverName", {
+            {...register("username", {
               required: {
                 message: "Drivers name is required",
                 value: true,
@@ -94,7 +93,7 @@ function DriversForm() {
             disabled={isCreatingDriver || isUpdatingDriver}
             id="driver-email"
             type="email"
-            {...register("driverEmail", {
+            {...register("userEmail", {
               required: {
                 message: "Drivers email is required",
                 value: true,
@@ -122,7 +121,7 @@ function DriversForm() {
         <FormRowVertical label="Drivers Image">
           <FileInput
             id="driver-image"
-            {...register("driverImage")}
+            {...register("userImage")}
             disabled={isCreatingDriver || isUpdatingDriver}
           />
         </FormRowVertical>
@@ -187,17 +186,15 @@ function DriversForm() {
             onClick={() => {
               setHasDriver(false);
               setDriver(null);
-              reset(
-                {
-                  driverName: undefined,
-                  driverImage: undefined,
-                  driverEmail: undefined,
-                  driverPassword: undefined,
-                  busNumber: undefined,
-                  driverAddress: undefined,
-                  driverPhone: undefined,
-                },
-              );
+              reset({
+                driverName: undefined,
+                userImage: undefined,
+                driverEmail: undefined,
+                driverPassword: undefined,
+                busNumber: undefined,
+                driverAddress: undefined,
+                driverPhone: undefined,
+              });
             }}
           >
             Reset

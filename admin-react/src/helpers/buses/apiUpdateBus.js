@@ -16,7 +16,7 @@ export async function apiUpdateBus(bus, busId) {
       url = await getDownloadURL(imgRes.ref);
     }
 
-    const busRef = ref(db, `busing/buses/${busId}`);
+    const busRef = ref(db, `buses/${busId}`);
     await set(busRef, { ...bus, busImage: url });
     
     return "success";

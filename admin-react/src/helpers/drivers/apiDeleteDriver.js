@@ -5,7 +5,7 @@ export async function apiDeleteDriver (driverId)
 {
  
   try {
-    const docRef = ref(db, `busing/users/${driverId}`);
+    const docRef = ref(db, `users/${driverId}`);
     await remove(docRef);
 
     return "success";

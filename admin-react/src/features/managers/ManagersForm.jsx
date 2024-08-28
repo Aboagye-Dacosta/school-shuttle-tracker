@@ -69,8 +69,8 @@ function ManagersForm() {
         ...value,
         role: value["role"]["value"],
         createdAt: new Date(Date.now()).toISOString(),
-        managerImage: value["managerImage"]?.length
-          ? value["managerImage"][0]
+        managerImage: value["userImage"]?.length
+          ? value["userImage"][0]
           : "",
       },
       {
@@ -100,7 +100,7 @@ function ManagersForm() {
             <Input
               id="username"
               disabled={isCreatingManager}
-              {...register("managerUsername", {
+              {...register("username", {
                 required: {
                   value: true,
                   message: "Manager username is required",
@@ -112,7 +112,7 @@ function ManagersForm() {
             <Input
               disabled={isCreatingManager}
               id="email"
-              {...register("managerEmail", {
+              {...register("userEmail", {
                 required: {
                   value: true,
                   message: "Manager email is required",

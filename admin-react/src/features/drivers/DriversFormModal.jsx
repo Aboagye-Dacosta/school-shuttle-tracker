@@ -65,7 +65,7 @@ function DriversFormModal({ closeModal }) {
           <Input
             disabled={isUpdatingDriver}
             id="driver-name"
-            {...register("driverName", {
+            {...register("username", {
               required: {
                 message: "Drivers name is required",
                 value: true,
@@ -78,7 +78,7 @@ function DriversFormModal({ closeModal }) {
             disabled={isUpdatingDriver}
             id="driver-email"
             type="email"
-            {...register("driverEmail", {
+            {...register("userEmail", {
               required: {
                 message: "Drivers email is required",
                 value: true,
@@ -103,7 +103,7 @@ function DriversFormModal({ closeModal }) {
         <FormRow label="Drivers Image">
           <FileInput
             id="driver-image"
-            {...register("driverImage")}
+            {...register("userImage")}
             disabled={isUpdatingDriver}
           />
         </FormRow>

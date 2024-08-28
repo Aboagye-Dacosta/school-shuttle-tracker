@@ -4,7 +4,7 @@ import { db } from "../../services/firebase";
 export async function apiDeleteUser (userId)
 {
      try {
-    const docRef = ref(db, `busing/users/${userId}`);
+    const docRef = ref(db, `users/${userId}`);
     await remove(docRef);
 
     return "success";

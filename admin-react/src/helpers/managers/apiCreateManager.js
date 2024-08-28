@@ -7,25 +7,25 @@ import { auth, db, storage } from "../../services/firebase";
 export async function apiCreateManager (manager)
 {
     const {
-        managerEmail,
+        userEmail,
         password,
-        managerImage
+        userImage
     } = manager
 
 
   try {
-    await createUserWithEmailAndPassword(auth, managerEmail, password).then(
+    await createUserWithEmailAndPassword(auth, userEmail, password).then(
       async () =>
       {
         let url = " ";
-        const docRef = push(ref(db, "busing/users"));
+        const docRef = push(ref(db, "users"));
 
-        if (managerImage) {
+        if (userImage) {
           const storageRef = strRef(
             storage,
-            `images/managers/${uuidv4()}-${managerImage.name}`
+            `images/managers/${uuidv4()}-${userImage.name}`
           );
-          const imgRes = await uploadBytes(storageRef, managerImage);
+          const imgRes = await uploadBytes(storageRef, userImage);
           url = await getDownloadURL(imgRes.ref);
         }
             
@@ -34,7 +34,8 @@ export async function apiCreateManager (manager)
 
         await set(docRef, {
             ...manager,
-            managerImage: url
+          userImage: url,
+            createdAt: new Date(Date.now()).toISOString(),
         });
 
         

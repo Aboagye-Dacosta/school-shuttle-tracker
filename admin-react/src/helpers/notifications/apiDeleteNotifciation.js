@@ -4,7 +4,7 @@ import { db } from "../../services/firebase";
 export async function apiDeleteNotification (notificationId)
 {
      try {
-    const docRef = ref(db, `busing/notifications/${notificationId}`);
+    const docRef = ref(db, `notifications/${notificationId}`);
     await remove(docRef);
 
     return "success";

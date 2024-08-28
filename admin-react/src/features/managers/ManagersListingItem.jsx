@@ -45,18 +45,23 @@ const StyledParagraph = styled.p`
   }
 `;
 
-function ManagersListingItem({ data: { id, image, name, role } }) {
-    return (
-      
+function ManagersListingItem({
+  data: { id, userImage, username, role, userEmail },
+}) {
+  return (
     <Menus>
       <StyledManagersListingItem>
         <div>
           <StyledImage>
-            <img src={image || "/default-user.jpg"} alt="image" />
+            <img
+              src={userImage.trim().length ? userImage : "/default-user.jpg"}
+              alt="image"
+            />
           </StyledImage>
           <StyledParagraph>
-            <span>{name}</span>
-            <Tag type={role == "admin" ? "red":"yellow"}>{role}</Tag>
+            <span>{username}</span>
+            <span>{userEmail}</span>
+            <Tag type={role == "admin" ? "red" : "yellow"}>{role}</Tag>
           </StyledParagraph>
         </div>
         <ManagersListingsActions id={id} />

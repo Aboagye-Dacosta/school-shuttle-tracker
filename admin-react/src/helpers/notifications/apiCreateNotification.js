@@ -6,7 +6,7 @@ export async function apiCreateNotification({
     notificationTarget,
   createdAt
 }) {
-  const docRef = push(ref(db, "busing/notifications"));
+  const docRef = push(ref(db, "notifications"));
   try {
     await set(docRef, {
       notificationTitle,

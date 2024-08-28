@@ -3,11 +3,9 @@ import styled, { css } from "styled-components";
 
 import Heading from "../../ui/Heading";
 
-import { driversData } from "../../assets/data";
-import Table from "../../ui/Table";
 import { useParams } from "react-router-dom";
+import Table from "../../ui/Table";
 import { useDriver } from "./useDriver";
-
 const Card = styled.div`
   background-color: var(--color-grey-0);
   padding: 2rem 3rem;
@@ -58,37 +56,36 @@ const StyledDriverDataBox = styled.div`
 `;
 
 function DriverDataBox() {
-   const { id } = useParams();
-   const { driver = {} } = useDriver(id);
+  const { id } = useParams();
+  const { driver = {} } = useDriver(id);
 
-   const {
-     driverName,
-     driverImage,
-     driverEmail,
-     busNumber,
-     driverAddress,
-     driverPhone,
-   } = driver;
+  const {
+    username,
+    userImage,
+    userEmail,
+    busNumber,
+    driverAddress,
+    driverPhone,
+  } = driver;
 
   return (
-      <StyledDriverDataBox>
-          
+    <StyledDriverDataBox>
       <Image>
-        <img src={driverImage} />
+        <img src={userImage} />
       </Image>
       <Card>
-        <Table columns="1fr 1fr" >
+        <Table columns="1fr 1fr">
           <Table.Row type="horizontal" justify="between">
             <Sub>
               <span>Driver&apos;s name</span>
             </Sub>
-            <Name>{driverName}</Name>
+            <Name>{username}</Name>
           </Table.Row>
           <Table.Row>
             <Sub>
               <span>Email</span>
             </Sub>
-            <text>{driverEmail}</text>
+            <text>{userEmail}</text>
           </Table.Row>
           <Table.Row>
             <Sub>

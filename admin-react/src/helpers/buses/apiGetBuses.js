@@ -11,7 +11,7 @@ export async function apiGetBuses (pageCount, page, status)
 {
 
   try {
-    const busesRef = ref(db, "busing/buses");
+    const busesRef = ref(db, "buses");
     let busQuery;
 
     if (status == "all") {

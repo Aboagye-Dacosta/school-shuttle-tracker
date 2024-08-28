@@ -10,7 +10,7 @@ export async function apiGetUserLogs ({userId})
 {
 
   try {
-    const userLogsRef = ref(db, `busing/userLogs/${userId}`);
+    const userLogsRef = ref(db, `userLogs/${userId}`);
     let busQuery = query(userLogsRef);
    
 
@@ -20,7 +20,6 @@ export async function apiGetUserLogs ({userId})
       const data = snapshot.val();
       const userLogs = Object.keys(data).map((key) => ({ id: key, ...data[key] }));
      
-      console.log(userLogs);
       
       return userLogs;
 

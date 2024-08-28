@@ -10,7 +10,7 @@ import { db } from "../../services/firebase";
 export async function apiGetNotifications ()
 {
      try {
-    const notificationsRef = ref(db, `busing/notifications`);
+    const notificationsRef = ref(db, `notifications`);
     let busQuery = query(notificationsRef);
    
 

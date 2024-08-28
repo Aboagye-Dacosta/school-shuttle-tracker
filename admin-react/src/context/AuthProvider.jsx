@@ -13,7 +13,7 @@ const routes = [
 ];
 
 const useAuthContext = () => {
-  const [isAuthenticated, setAuthenticated] = useState(false);
+  const [isAuthenticated, setAuthenticated] = useState(true);
   const [user, setUser] = useState({});
   const [role, setUserRole] = useState("");
 

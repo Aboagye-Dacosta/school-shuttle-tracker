@@ -3,7 +3,7 @@ import { db } from "../../services/firebase";
 
 export async function apiGetBus(busId) {
   try {
-    const busRef = ref(db, `busing/buses/${busId}`);
+    const busRef = ref(db, `buses/${busId}`);
    const snapshot = await get(busRef);
 
     if (snapshot.exists()) {

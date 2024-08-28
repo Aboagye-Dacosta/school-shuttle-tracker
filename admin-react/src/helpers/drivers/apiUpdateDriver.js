@@ -5,19 +5,19 @@ import { db, storage } from "../../services/firebase";
 
 export async function apiUpdateDriver(driver, driverId) {
   try {
-    let url = driver["driverImage"];
+    let url = driver["userImage"];
     
-    if (typeof driver["driverImage"] == "object") {
+    if (typeof driver["userImage"] == "object") {
       const storageRef = strRef(
         storage,
-        `images/${uuidv4()}-${driver["driverImage"].name}`
+        `images/drivers/${uuidv4()}-${driver["userImage"].name}`
       );
-      const imgRes = await uploadBytes(storageRef, driver["driverImage"]);
+      const imgRes = await uploadBytes(storageRef, driver["userImage"]);
       url = await getDownloadURL(imgRes.ref);
     }
 
-    const driverRef = ref(db, `busing/users/${driverId}`);
-    await set(driverRef, { ...driver, driverImage: url });
+    const driverRef = ref(db, `users/${driverId}`);
+    await set(driverRef, { ...driver, userImage: url });
     
     return "success";
   } catch (error) {

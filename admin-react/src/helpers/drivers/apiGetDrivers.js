@@ -10,7 +10,7 @@ export async function apiGetDrivers ()
 {
 
   try {
-    const driversRef = ref(db, "busing/users");
+    const driversRef = ref(db, "users");
     let busQuery = query(driversRef);
    
 
